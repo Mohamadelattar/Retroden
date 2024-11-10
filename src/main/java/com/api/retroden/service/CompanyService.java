@@ -31,7 +31,7 @@ public class CompanyService {
         Optional<Company> companyOptional = companyRepository.findById(id);
         if(companyOptional.isPresent()){
             Company existingCompany = companyOptional.get();
-            existingCompany.setJob(company.getJob());
+            existingCompany.setJobs(company.getJobs());
             existingCompany.setName(company.getName());
             existingCompany.setIndustry(company.getIndustry());
             return companyRepository.save(existingCompany);
