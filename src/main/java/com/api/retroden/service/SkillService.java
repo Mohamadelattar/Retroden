@@ -19,12 +19,8 @@ public class SkillService {
     }
 
     public Skill findById(Long id){
-        Optional<Skill> skillOptional = skillRepository.findById(id);
-        if(skillOptional.isPresent()){
-            return skillOptional.get();
-        } else {
-            throw new RuntimeException("Skill not found with id: " + id);
-        }
+        return  skillRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Skill not found with id: " + id));
     }
     public Skill create (Skill skill){
         return skillRepository.save(skill);
