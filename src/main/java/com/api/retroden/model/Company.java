@@ -19,5 +19,5 @@ public class Company {
     private Industry industry;
 
     @OneToMany(mappedBy = "company" , cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Job> job;
+    private List<Job> jobs;
 }
