@@ -1,10 +1,10 @@
-package com.api.retroden.dto;
+package com.api.retroden.dto.request;
 
 import com.api.retroden.model.Availability;
 
 import java.util.List;
 
-public record ProfessionalRecord(
+public record ProfessionalRequest(
         String firstName,
         String lastName,
         Availability availability,

@@ -1,5 +1,6 @@
 package com.api.retroden.service;
 
+import com.api.retroden.dto.response.CertificationResponse;
 import com.api.retroden.model.Certification;
 import com.api.retroden.repository.CertificationRepository;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class CertificationService {
         return certificationRepository.findAll();
     }
 
-    public Optional<Certification> findById(Long id){
+    public Optional<CertificationResponse> findById(Long id){
         return certificationRepository.findById(id);
     }
     public Certification update(Long id, Certification certification){
