@@ -1,11 +1,17 @@
 package com.api.retroden.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "job")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Job {
 
     @Id

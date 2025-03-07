@@ -4,5 +4,5 @@ import com.api.retroden.model.Job;
 
 import java.util.List;
 
-public record CompanyRequest(String name, Long industryID, List<Job> jobs) {
+public record CompanyRequest(String name, Long industryID, List<String> jobs) {
 }

@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CVResponse {
     private String name;
+    private byte[] data;
 }
