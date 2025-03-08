@@ -1,8 +1,10 @@
 package com.api.retroden.service;
 
+import com.api.retroden.dto.mapper.CertificationMapper;
 import com.api.retroden.dto.response.CertificationResponse;
 import com.api.retroden.model.Certification;
 import com.api.retroden.repository.CertificationRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +13,11 @@ import java.util.Optional;
 @Service
 public class CertificationService {
     private final CertificationRepository certificationRepository;
+    private final CertificationMapper certificationMapper;
 
-    public CertificationService(CertificationRepository certificationRepository) {
+    public CertificationService(CertificationRepository certificationRepository, CertificationMapper certificationMapper) {
         this.certificationRepository = certificationRepository;
+        this.certificationMapper = certificationMapper;
     }
     public Certification create(Certification certification){
         return certificationRepository.save(certification);
@@ -22,8 +26,10 @@ public class CertificationService {
         return certificationRepository.findAll();
     }
 
-    public Optional<CertificationResponse> findById(Long id){
-        return certificationRepository.findById(id);
+    public CertificationResponse findById(Long id){
+        return certificationRepository.findById(id)
+                .map(certificationMapper::toCertificationResponse)
+                .orElseThrow(() -> new EntityNotFoundException("Certification not found with id " + id));
     }
     public Certification update(Long id, Certification certification){
         Optional<Certification> certifOptional = certificationRepository.findById(id);
