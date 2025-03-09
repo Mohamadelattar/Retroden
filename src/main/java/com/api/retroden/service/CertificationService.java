@@ -1,9 +1,12 @@
 package com.api.retroden.service;
 
 import com.api.retroden.dto.mapper.CertificationMapper;
+import com.api.retroden.dto.request.CertificationRequest;
 import com.api.retroden.dto.response.CertificationResponse;
 import com.api.retroden.model.Certification;
+import com.api.retroden.model.Professionel;
 import com.api.retroden.repository.CertificationRepository;
+import com.api.retroden.repository.ProfessionelRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +18,24 @@ public class CertificationService {
     private final CertificationRepository certificationRepository;
     private final CertificationMapper certificationMapper;
 
-    public CertificationService(CertificationRepository certificationRepository, CertificationMapper certificationMapper) {
+
+    public CertificationService(CertificationRepository certificationRepository, CertificationMapper certificationMapper, ProfessionelRepository professionelRepository) {
         this.certificationRepository = certificationRepository;
         this.certificationMapper = certificationMapper;
+
     }
-    public Certification create(Certification certification){
-        return certificationRepository.save(certification);
+    public CertificationResponse create(CertificationRequest certificationRequest){
+        var certification = certificationMapper.toCertification(certificationRequest);
+        certification.setProfessional(findCertificationProfessionelById(certificationRequest.professionalId()));
+        var savedCertification = certificationRepository.save(certification);
+        return certificationMapper.toCertificationResponse(savedCertification);
     }
-    public List<Certification> findAll(){
-        return certificationRepository.findAll();
+    public List<CertificationResponse> findAll(){
+        return  certificationRepository.findAll()
+                .stream()
+                .map(certificationMapper::toCertificationResponse)
+                .toList();
+
     }
 
     public CertificationResponse findById(Long id){
@@ -31,19 +43,23 @@ public class CertificationService {
                 .map(certificationMapper::toCertificationResponse)
                 .orElseThrow(() -> new EntityNotFoundException("Certification not found with id " + id));
     }
-    public Certification update(Long id, Certification certification){
-        Optional<Certification> certifOptional = certificationRepository.findById(id);
+    public CertificationResponse update(CertificationRequest certificationRequest){
+        Optional<Certification> certifOptional = certificationRepository.findById(certificationRequest.id());
         if(certifOptional.isPresent()){
             Certification existingCertification = certifOptional.get();
-            existingCertification.setName(certification.getName());
-            existingCertification.setData(certification.getData());
-            return certificationRepository.save(existingCertification);
+            existingCertification.setName(certificationRequest.name());
+            existingCertification.setData(certificationRequest.data());
+            return certificationMapper.toCertificationResponse(certificationRepository.save(existingCertification));
         } else {
-            throw new RuntimeException("Certification not found with id: " + id);
+            throw new RuntimeException("Certification not found with id: " + certificationRequest.id());
         }
     }
     public void delete(Long id){
         certificationRepository.deleteById(id);
+    }
+
+    public Professionel findCertificationProfessionelById(Long id){
+        return certificationRepository.findProfessionelById(id);
     }
 
 

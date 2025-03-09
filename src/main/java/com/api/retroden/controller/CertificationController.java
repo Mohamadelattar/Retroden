@@ -28,7 +28,7 @@ public class CertificationController {
 
     @GetMapping
     public ResponseEntity<CertificationResponse> findById(@RequestParam Long id) {
-        return ResponseEntity.of(this.certificationService.findById(id));
+        return ResponseEntity.ok(this.certificationService.findById(id));
     }
 
     @GetMapping
@@ -36,6 +36,15 @@ public class CertificationController {
         return ResponseEntity.ok(certificationService.findAll());
     }
 
+    @PutMapping
+    public ResponseEntity<?> updateCertification(@RequestBody @Valid CertificationRequest certificationRequest) {
+        return ResponseEntity.ok(certificationService.update(certificationRequest));
+    }
+
+    @DeleteMapping
+    public void deleteCertification(@RequestParam Long id) {
+        this.certificationService.delete(id);
+    }
 
 
 }

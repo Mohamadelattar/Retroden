@@ -13,8 +13,7 @@ public class CertificationMapper {
                 .idCertification(certificationRequest.id())
                 .name(certificationRequest.name())
                 .data(certificationRequest.data())
-                .professional(certificationRequest.professionalId())
-                .build(); // Add professsionel data
+                .build();
     }
 
     public CertificationResponse toCertificationResponse(Certification certification) {
