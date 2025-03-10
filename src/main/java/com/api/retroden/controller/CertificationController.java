@@ -2,7 +2,6 @@ package com.api.retroden.controller;
 
 import com.api.retroden.dto.request.CertificationRequest;
 import com.api.retroden.dto.response.CertificationResponse;
-import com.api.retroden.model.Certification;
 import com.api.retroden.service.CertificationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

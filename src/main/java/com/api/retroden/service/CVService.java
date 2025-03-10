@@ -1,7 +1,11 @@
 package com.api.retroden.service;
 
-import com.api.retroden.model.CV;
+import com.api.retroden.dto.mapper.CvMapper;
+import com.api.retroden.dto.request.CvRequest;
+import com.api.retroden.dto.response.CVResponse;
+import com.api.retroden.model.Professionel;
 import com.api.retroden.repository.CVRepository;
+import com.api.retroden.repository.ProfessionelRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,35 +14,49 @@ import java.util.Optional;
 @Service
 public class CVService {
     private final CVRepository cvRepository;
-
-    public CVService(CVRepository cvRepository) {
+    private final CvMapper cvMapper;
+    private final ProfessionelRepository professionelRepository;
+    public CVService(CVRepository cvRepository, CvMapper cvMapper, ProfessionelRepository professionelRepository) {
         this.cvRepository = cvRepository;
+        this.cvMapper = cvMapper;
+        this.professionelRepository = professionelRepository;
     }
 
-    public List<CV> findAll() {
-        return cvRepository.findAll();
+    public List<CVResponse> findAll() {
+        return cvRepository.findAll()
+                .stream()
+                .map(cvMapper::toCvResponse)
+                .toList();
+
     }
 
-    public CV findById(Long id) {
+    public CVResponse findById(Long id) {
         return   cvRepository.findById(id)
+                .map(cvMapper::toCvResponse)
                 .orElseThrow(() -> new RuntimeException("CV not found with id: " + id));
     }
-    public CV create(CV cv) {
-        return cvRepository.save(cv);
+    public CVResponse create(CvRequest cvRequest) {
+        var cv = cvMapper.toCV(cvRequest);
+        cv.setProfessional(findCvProfessionelById(cvRequest.id()));
+        var savedCv = cvRepository.save(cv);
+        return cvMapper.toCvResponse(savedCv);
     }
 
-    public CV update(Long id,CV cv) {
-        return cvRepository.findById(id)
+    public CVResponse update(CvRequest cvRequest) {
+        return cvMapper.toCvResponse( cvRepository.findById(cvRequest.id())
                 .map(existingCV -> {
-                    Optional.ofNullable(cv.getName()).ifPresent(existingCV::setName);
-                    Optional.ofNullable(cv.getData()).ifPresent(existingCV::setData);
-                    Optional.ofNullable(cv.getProfessional()).ifPresent(existingCV::setProfessional);
+                    Optional.ofNullable(cvRequest.name()).ifPresent(existingCV::setName);
+                    Optional.ofNullable(cvRequest.data()).ifPresent(existingCV::setData);
+                    Optional.ofNullable(findCvProfessionelById(cvRequest.id())).ifPresent(existingCV::setProfessional);
                     return cvRepository.save(existingCV);
-                }).orElseThrow(() -> new RuntimeException("CV not found with id: " + id));
+                }).orElseThrow(() -> new RuntimeException("CV not found with id: " + cvRequest.id())));
     }
 
     public void delete(Long id) {
         cvRepository.deleteById(id);
+    }
+    public Professionel findCvProfessionelById(Long id) {
+        return professionelRepository.findById(id).orElseThrow(() -> new RuntimeException("Professionel not found with id: " + id));
     }
 
 }
