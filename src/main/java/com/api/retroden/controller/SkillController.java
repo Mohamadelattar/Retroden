@@ -27,7 +27,7 @@ public class SkillController {
         return ResponseEntity.ok(skillService.findAll());
     }
     @PostMapping
-    public ResponseEntity<SkillResponse> save(@RequestBody @Valid  SkillRequest skillRequest) {
+    public ResponseEntity<?> save(@RequestBody @Valid  SkillRequest skillRequest) {
         this.skillService.create(skillRequest);
         return ResponseEntity.accepted().body("Skill created");
     }

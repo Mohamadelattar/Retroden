@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "industry")
@@ -18,9 +20,8 @@ public class Industry {
     private Long idIndustry;
     @Column(name = "name")
     private String name;
-    @OneToOne
-    @JoinColumn(name = "company")
-    private Company company;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<Company> companies;
 
 
 }

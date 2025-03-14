@@ -22,7 +22,8 @@ public class Company {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(mappedBy = "company" , cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne
+    @JoinColumn(name = "industry_id")
     private Industry industry;
 
     @OneToMany(mappedBy = "company" , cascade = CascadeType.ALL, orphanRemoval = true)

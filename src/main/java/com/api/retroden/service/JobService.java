@@ -1,7 +1,13 @@
 package com.api.retroden.service;
 
+import com.api.retroden.dto.mapper.JobMapper;
+import com.api.retroden.dto.request.JobRequest;
+import com.api.retroden.dto.response.JobResponse;
+import com.api.retroden.model.Company;
 import com.api.retroden.model.Job;
+import com.api.retroden.repository.CompanyRepository;
 import com.api.retroden.repository.JobRepository;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,40 +16,48 @@ import java.util.Optional;
 @Service
 public class JobService {
     private final JobRepository jobRepository;
+    private final JobMapper jobMapper;
+    private final CompanyRepository companyRepository;
 
-    public JobService(JobRepository jobRepository) {
+    public JobService(JobRepository jobRepository, JobMapper jobMapper, CompanyRepository companyRepository) {
         this.jobRepository = jobRepository;
+        this.jobMapper = jobMapper;
+        this.companyRepository = companyRepository;
     }
 
-    public List<Job> findAll() {
-        return jobRepository.findAll();
+    public List<JobResponse> findAll() {
+
+        return jobRepository.findAll().stream()
+                .map(jobMapper::toJobResponse)
+                .toList();
     }
 
-    public Job findById(Long id) {
-        Optional<Job> jobOptional = jobRepository.findById(id);
-        if(jobOptional.isPresent()) {
-            return jobOptional.get();
-        } else {
-            throw new RuntimeException("Job not found with id " + id);
-        }
+    public JobResponse findById(Long id) {
+        return jobRepository.findById(id)
+                .map(jobMapper::toJobResponse)
+                .orElseThrow(() -> new RuntimeException("Job not found with id " + id));
     }
-    public Job create(Job job) {
-        return jobRepository.save(job);
+    public JobResponse create(JobRequest jobRequest) {
+        var job = jobMapper.toJob(jobRequest);
+        job.setCompany(findCompanyJob(jobRequest.companyId()));
+        var savedJob = jobRepository.save(job);
+        return jobMapper.toJobResponse(savedJob);
     }
-    public Job update(Long id,Job job) {
-        Optional<Job> jobOptional = jobRepository.findById(id);
-        if(jobOptional.isPresent()) {
-            Job existingJob = jobOptional.get();
-            existingJob.setTitle(job.getTitle());
-            existingJob.setCompany(job.getCompany());
-            existingJob.setDescription(job.getDescription());
-        return jobRepository.save(existingJob);
-        } else {
-            throw new RuntimeException("Job not found with id " + id);
-        }
+    public JobResponse update(JobRequest jobRequest) {
+        return jobMapper.toJobResponse(
+                jobRepository.findById(jobRequest.id())
+                        .map(existingJob -> {
+                            Optional.ofNullable(jobRequest.title()).ifPresent(existingJob::setTitle);
+                            Optional.ofNullable(findCompanyJob(jobRequest.companyId())).ifPresent(existingJob::setCompany);
+                            return jobRepository.save(existingJob);
+                        }).orElseThrow(() -> new RuntimeException("Job not found with id " + jobRequest.id()))
+        );
     }
 
     public void delete(Long id) {
         jobRepository.deleteById(id);
+    }
+    public Company findCompanyJob(Long id) {
+        return companyRepository.findById(id).orElseThrow(() -> new RuntimeException("Company not found with id " + id));
     }
 }

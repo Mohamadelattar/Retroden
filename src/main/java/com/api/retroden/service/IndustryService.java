@@ -1,6 +1,11 @@
 package com.api.retroden.service;
 
+import com.api.retroden.dto.mapper.IndustryMapper;
+import com.api.retroden.dto.request.IndustryRequest;
+import com.api.retroden.dto.response.IndustryResponse;
+import com.api.retroden.model.Company;
 import com.api.retroden.model.Industry;
+import com.api.retroden.repository.CompanyRepository;
 import com.api.retroden.repository.IndustryRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,40 +15,46 @@ import java.util.Optional;
 @Service
 public class IndustryService {
     private final IndustryRepository industryRepository;
-
-    public IndustryService(IndustryRepository industryRepository) {
+    private final IndustryMapper industryMapper;
+    private final CompanyRepository companyRepository;
+    public IndustryService(IndustryRepository industryRepository, IndustryMapper industryMapper, CompanyRepository companyRepository) {
         this.industryRepository = industryRepository;
+        this.industryMapper = industryMapper;
+        this.companyRepository = companyRepository;
     }
 
-    public List<Industry> findAll() {
-        return industryRepository.findAll();
+    public List<IndustryResponse> findAll() {
+        return industryRepository.findAll()
+                .stream()
+                .map(industryMapper::toIndustryResponse)
+                .toList();
     }
-    public Industry findById(Long id) {
+    public IndustryResponse findById(Long id) {
+        return industryRepository.findById(id)
+                .map(industryMapper::toIndustryResponse)
+                .orElseThrow(() -> new RuntimeException("Industry not found with id " + id));
+    }
+    public IndustryResponse create(IndustryRequest industryRequest) {
+        var industry = industryMapper.toIndustry(industryRequest);
+        industry.setCompanies(findCompaniesIndustry(industryRequest.companies()));
+        var savedIndustry = industryRepository.save(industry);
+        return industryMapper.toIndustryResponse(savedIndustry);
+    }
 
-        Optional<Industry> industryOptional = industryRepository.findById(id);
-        if(industryOptional.isPresent()) {
-            return industryOptional.get();
-        } else {
-            throw new RuntimeException("Industry not found with id: " + id);
-        }
-    }
-    public Industry create(Industry industry) {
-        return industryRepository.save(industry);
-    }
-
-    public Industry update(Long id,Industry industry) {
-        Optional<Industry> industryOptional = industryRepository.findById(id);
-        if(industryOptional.isPresent()) {
-            Industry existingIndustry = industryOptional.get();
-            existingIndustry.setName(industry.getName());
-            existingIndustry.setCompany(industry.getCompany());
-        return industryRepository.save(existingIndustry);
-        } else {
-            throw new RuntimeException("Industry not found with id: " + id);
-        }
+    public IndustryResponse update(IndustryRequest industryRequest) {
+        return industryMapper.toIndustryResponse(industryRepository.findById(industryRequest.id())
+                .map(existingIndustry -> {
+                    Optional.ofNullable(industryRequest.name()).ifPresent(existingIndustry::setName);
+                    Optional.ofNullable(findCompaniesIndustry(industryRequest.companies())).ifPresent(existingIndustry::setCompanies);
+                    return industryRepository.save(existingIndustry);
+                }).orElseThrow(() -> new RuntimeException("Industry not found with id " + industryRequest.id())));
     }
     public void delete(Long id) {
         industryRepository.deleteById(id);
+    }
+
+    private List<Company> findCompaniesIndustry(List<String> companies) {
+        return companies.stream().map(companyRepository::findByName).toList();
     }
 
 }
