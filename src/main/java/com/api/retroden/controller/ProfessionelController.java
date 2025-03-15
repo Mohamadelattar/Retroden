@@ -23,8 +23,8 @@ public class ProfessionelController {
         return ResponseEntity.accepted().body("Professionel created");
     }
 
-    @GetMapping
-    public ResponseEntity<ProfessionelResponse> findById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ProfessionelResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(this.professionalService.findById(id));
     }
     @GetMapping

@@ -17,8 +17,8 @@ public class IndustryController {
     public IndustryController(IndustryService industryService) {
         this.industryService = industryService;
     }
-    @GetMapping
-    public ResponseEntity<IndustryResponse> findById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<IndustryResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(industryService.findById(id));
     }
     @GetMapping
@@ -30,7 +30,7 @@ public class IndustryController {
      this.industryService.create(industryRequest);
      return ResponseEntity.accepted().body("Industry created");
     }
-    @PostMapping
+    @PutMapping
     public ResponseEntity<?> update(@RequestBody @Valid IndustryRequest industryRequest) {
         return ResponseEntity.accepted().body(industryService.update(industryRequest));
     }

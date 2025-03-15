@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CertificationRepository extends JpaRepository<Certification, Long> {
-    public Professionel findProfessionelById(long id);
+    public Professionel findProfessionelByIdCertification(long id);
     public Certification findByName(String name);
 }

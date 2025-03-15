@@ -18,7 +18,7 @@ public class SkillController {
         this.skillService = skillService;
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<SkillResponse> findById(@RequestParam Long id) {
         return ResponseEntity.ok(skillService.findById(id));
     }

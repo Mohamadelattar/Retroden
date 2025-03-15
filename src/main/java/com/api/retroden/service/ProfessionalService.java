@@ -75,7 +75,7 @@ public class ProfessionalService {
     }
 
     public List<Skill> findProfessionalSkills(List<String> skills) {
-        return skills.stream().map(skillRepository::findByName).toList();
+        return skills.stream().map(skillRepository::findBySkillName).toList();
     }
     public List<Certification> findProfessionalCertifications(List<String> certifications) {
         return certifications.stream().map(certificationRepository::findByName).toList();

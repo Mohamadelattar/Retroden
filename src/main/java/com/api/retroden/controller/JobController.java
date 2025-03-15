@@ -2,7 +2,6 @@ package com.api.retroden.controller;
 
 import com.api.retroden.dto.request.JobRequest;
 import com.api.retroden.dto.response.JobResponse;
-import com.api.retroden.model.Job;
 import com.api.retroden.service.JobService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,7 @@ public class JobController {
     public JobController(JobService jobService) {
         this.jobService = jobService;
     }
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<JobResponse> findById(@RequestParam Long id) {
         return ResponseEntity.ok(jobService.findById(id));
     }

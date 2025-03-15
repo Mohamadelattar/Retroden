@@ -17,8 +17,8 @@ public class CvController {
     public CvController(CVService cvService) {
         this.cvService = cvService;
     }
-    @GetMapping
-    public ResponseEntity<CVResponse> findById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<CVResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(cvService.findById(id));
     }
     @GetMapping

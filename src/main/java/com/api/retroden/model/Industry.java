@@ -20,7 +20,7 @@ public class Industry {
     private Long idIndustry;
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "name", cascade = CascadeType.ALL)
     private List<Company> companies;
 
 

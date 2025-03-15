@@ -4,7 +4,9 @@ import com.api.retroden.dto.request.SkillRequest;
 import com.api.retroden.dto.response.SkillResponse;
 import com.api.retroden.model.Skill;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
+@Component
 @Mapper(componentModel = "spring")
 public class SkillMapper {
     public Skill toSkill(SkillRequest skillRequest) {

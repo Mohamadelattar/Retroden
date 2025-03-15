@@ -59,7 +59,7 @@ public class CertificationService {
     }
 
     public Professionel findCertificationProfessionelById(Long id){
-        return certificationRepository.findProfessionelById(id);
+        return certificationRepository.findProfessionelByIdCertification(id);
     }
 
 

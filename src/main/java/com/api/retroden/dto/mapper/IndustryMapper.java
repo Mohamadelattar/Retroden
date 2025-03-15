@@ -4,7 +4,9 @@ import com.api.retroden.dto.request.IndustryRequest;
 import com.api.retroden.dto.response.IndustryResponse;
 import com.api.retroden.model.Industry;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
+@Component
 @Mapper(componentModel = "spring")
 public class IndustryMapper {
     public Industry toIndustry(IndustryRequest industryRequest) {

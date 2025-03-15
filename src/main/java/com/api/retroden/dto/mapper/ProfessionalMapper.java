@@ -4,7 +4,9 @@ import com.api.retroden.dto.request.ProfessionelRequest;
 import com.api.retroden.dto.response.ProfessionelResponse;
 import com.api.retroden.model.Professionel;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
+@Component
 @Mapper(componentModel = "spring")
 public class ProfessionalMapper {
     public Professionel toProfessionel(ProfessionelRequest professionelRequest) {

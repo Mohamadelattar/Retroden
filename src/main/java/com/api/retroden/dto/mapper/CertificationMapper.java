@@ -4,8 +4,10 @@ import com.api.retroden.dto.request.CertificationRequest;
 import com.api.retroden.dto.response.CertificationResponse;
 import com.api.retroden.model.Certification;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-
+@Component
 @Mapper(componentModel="spring",uses={ProfessionalMapper.class})
 public class CertificationMapper {
     public Certification toCertification(CertificationRequest certificationRequest) {

@@ -25,13 +25,13 @@ public class CertificationController {
         return ResponseEntity.accepted().body("Certification created");
     }
 
-    @GetMapping
-    public ResponseEntity<CertificationResponse> findById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<CertificationResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(this.certificationService.findById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<CertificationResponse>> findAll() {
+    public ResponseEntity<List<CertificationResponse>> getAll() {
         return ResponseEntity.ok(certificationService.findAll());
     }
 

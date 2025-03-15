@@ -12,3 +12,14 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: [ "prometheus" ]

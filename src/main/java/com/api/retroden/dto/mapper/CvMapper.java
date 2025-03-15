@@ -4,7 +4,9 @@ import com.api.retroden.dto.request.CvRequest;
 import com.api.retroden.dto.response.CVResponse;
 import com.api.retroden.model.CV;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
+@Component
 @Mapper(componentModel = "spring")
 public class CvMapper {
     public CV toCV(CvRequest cvRequest) {

@@ -17,8 +17,8 @@ public class CompanyController {
     public CompanyController(CompanyService companyService) {
         this.companyService = companyService;
     }
-    @GetMapping
-    public ResponseEntity<CompanyResponse> findById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<CompanyResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(companyService.findById(id));
     }
     @GetMapping
