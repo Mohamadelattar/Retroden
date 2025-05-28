@@ -47,6 +47,4 @@ public class Professionel {
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Certification> certifications;
 
-
-
 }
