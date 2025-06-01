@@ -13,8 +13,8 @@ public record ProfessionelRequest(
         String location,
         Availability availability,
         List<String> skills,
-        List<String> certefications,
-        Long idCv)
+        Long idCv,
+        List<String> certefications)
 {
 
 }

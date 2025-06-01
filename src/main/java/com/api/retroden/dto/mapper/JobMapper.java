@@ -13,7 +13,7 @@ public class JobMapper {
         return Job.builder()
                 .idJob(jobRequest.id())
                 .title(jobRequest.title())
-                .description(jobRequest.title())
+                .description(jobRequest.description())
                 .build();
     }
 

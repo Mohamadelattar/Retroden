@@ -14,6 +14,7 @@ public class ProfessionalMapper {
                 .idProfessionel(professionelRequest.id())
                 .firstName(professionelRequest.firstName())
                 .lastName(professionelRequest.lastName())
+                .email(professionelRequest.email())
                 .age(professionelRequest.age())
                 .location(professionelRequest.location())
                 .availability(professionelRequest.availability())
@@ -25,8 +26,10 @@ public class ProfessionalMapper {
         return ProfessionelResponse.builder()
                 .firstName(professionel.getFirstName())
                 .lastName(professionel.getLastName())
+                .email(professionel.getEmail())
                 .age(professionel.getAge())
                 .location(professionel.getLocation())
+                .availability(professionel.getAvailability())
                 .build();
     }
 }
