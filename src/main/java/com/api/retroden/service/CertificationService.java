@@ -19,7 +19,7 @@ public class CertificationService {
     private final CertificationMapper certificationMapper;
 
 
-    public CertificationService(CertificationRepository certificationRepository, CertificationMapper certificationMapper, ProfessionelRepository professionelRepository) {
+    public CertificationService(CertificationRepository certificationRepository, CertificationMapper certificationMapper) {
         this.certificationRepository = certificationRepository;
         this.certificationMapper = certificationMapper;
 
