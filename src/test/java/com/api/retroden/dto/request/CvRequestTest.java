@@ -16,6 +16,6 @@ public class CvRequestTest {
         assertEquals(id,request.id());
         assertEquals(name,request.name());
         assertEquals(data,request.data());
-        assertEquals(professionalId,request.professionalId());
+        assertEquals(professionalId,request.professionelId());
     }
 }

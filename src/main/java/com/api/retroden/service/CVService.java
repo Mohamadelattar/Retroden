@@ -6,6 +6,7 @@ import com.api.retroden.dto.response.CVResponse;
 import com.api.retroden.model.Professionel;
 import com.api.retroden.repository.CVRepository;
 import com.api.retroden.repository.ProfessionelRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class CVService {
     public CVResponse findById(Long id) {
         return   cvRepository.findById(id)
                 .map(cvMapper::toCvResponse)
-                .orElseThrow(() -> new RuntimeException("CV not found with id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("CV not found with id: " + id));
     }
     public CVResponse create(CvRequest cvRequest) {
         var cv = cvMapper.toCV(cvRequest);

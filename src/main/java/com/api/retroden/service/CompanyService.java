@@ -9,6 +9,7 @@ import com.api.retroden.model.Job;
 import com.api.retroden.repository.CompanyRepository;
 import com.api.retroden.repository.IndustryRepository;
 import com.api.retroden.repository.JobRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class CompanyService {
     public CompanyResponse findById(Long id){
         return companyRepository.findById(id)
                 .map(companyMapper::toCompanyResponse)
-                .orElseThrow(() -> new RuntimeException("Company not found with id " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Company not found with id " + id));
     }
 
     public CompanyResponse create(CompanyRequest companyRequest){
@@ -58,7 +59,7 @@ public class CompanyService {
                             Optional.ofNullable(findCompanyJob(companyRequest.jobs())).ifPresent(existingCompany::setJobs);
                             return companyRepository.save(existingCompany);
                         })
-                        .orElseThrow(() -> new RuntimeException("Company not found with id " + companyRequest.id()))
+                        .orElseThrow(() -> new EntityNotFoundException("Company not found with id " + companyRequest.id()))
         );
     }
 
@@ -67,7 +68,7 @@ public class CompanyService {
     }
 
     public Industry findCompanyIndustry(Long id){
-        return industryRepository.findById(id).orElseThrow(() -> new RuntimeException("Company not found with id : " + id));
+        return industryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Company not found with id : " + id));
     }
     public List<Job> findCompanyJob(List<String> jobs){
         return jobs.stream().map(jobRepository::findByTitle).toList();
