@@ -7,6 +7,7 @@ import com.api.retroden.model.Company;
 import com.api.retroden.model.Job;
 import com.api.retroden.repository.CompanyRepository;
 import com.api.retroden.repository.JobRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class JobService {
     public JobResponse findById(Long id) {
         return jobRepository.findById(id)
                 .map(jobMapper::toJobResponse)
-                .orElseThrow(() -> new RuntimeException("Job not found with id " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Job not found with id " + id));
     }
     public JobResponse create(JobRequest jobRequest) {
         var job = jobMapper.toJob(jobRequest);
@@ -50,7 +51,7 @@ public class JobService {
                             Optional.ofNullable(jobRequest.title()).ifPresent(existingJob::setTitle);
                             Optional.ofNullable(findCompanyJob(jobRequest.companyId())).ifPresent(existingJob::setCompany);
                             return jobRepository.save(existingJob);
-                        }).orElseThrow(() -> new RuntimeException("Job not found with id " + jobRequest.id()))
+                        }).orElseThrow(() -> new EntityNotFoundException("Job not found with id " + jobRequest.id()))
         );
     }
 

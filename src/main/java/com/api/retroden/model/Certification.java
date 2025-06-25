@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class Certification {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCertification;
 
     @Column(name = "name")

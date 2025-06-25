@@ -7,6 +7,7 @@ import com.api.retroden.model.Company;
 import com.api.retroden.model.Industry;
 import com.api.retroden.repository.CompanyRepository;
 import com.api.retroden.repository.IndustryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class IndustryService {
     public IndustryResponse findById(Long id) {
         return industryRepository.findById(id)
                 .map(industryMapper::toIndustryResponse)
-                .orElseThrow(() -> new RuntimeException("Industry not found with id " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Industry not found with id " + id));
     }
     public IndustryResponse create(IndustryRequest industryRequest) {
         var industry = industryMapper.toIndustry(industryRequest);
@@ -47,7 +48,7 @@ public class IndustryService {
                     Optional.ofNullable(industryRequest.name()).ifPresent(existingIndustry::setName);
                     Optional.ofNullable(findCompaniesIndustry(industryRequest.companies())).ifPresent(existingIndustry::setCompanies);
                     return industryRepository.save(existingIndustry);
-                }).orElseThrow(() -> new RuntimeException("Industry not found with id " + industryRequest.id())));
+                }).orElseThrow(() -> new EntityNotFoundException("Industry not found with id " + industryRequest.id())));
     }
     public void delete(Long id) {
         industryRepository.deleteById(id);

@@ -10,6 +10,7 @@ import com.api.retroden.repository.ProfessionelRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CertificationServiceTest {
 
     private CertificationRepository certificationRepository;

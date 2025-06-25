@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CV {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCV;
     @Column(name = "name")
     private String  name;
