@@ -7,20 +7,19 @@ import com.api.retroden.model.Company;
 import com.api.retroden.model.Job;
 import com.api.retroden.repository.CompanyRepository;
 import com.api.retroden.repository.JobRepository;
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
+
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+
 public class JobServiceTest {
     @Mock
     private JobRepository jobRepository;
@@ -117,4 +116,6 @@ public class JobServiceTest {
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> jobService.findById(id));
         assertEquals("Job not found with id " + id, exception.getMessage());
     }
+
+
 }

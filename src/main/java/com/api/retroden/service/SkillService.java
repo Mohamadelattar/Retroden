@@ -4,10 +4,8 @@ import com.api.retroden.dto.mapper.SkillMapper;
 import com.api.retroden.dto.request.SkillRequest;
 import com.api.retroden.dto.response.SkillResponse;
 import com.api.retroden.model.Professionel;
-import com.api.retroden.model.Skill;
 import com.api.retroden.repository.ProfessionelRepository;
 import com.api.retroden.repository.SkillRepository;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

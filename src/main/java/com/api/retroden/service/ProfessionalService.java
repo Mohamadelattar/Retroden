@@ -11,6 +11,7 @@ import com.api.retroden.repository.CVRepository;
 import com.api.retroden.repository.CertificationRepository;
 import com.api.retroden.repository.ProfessionelRepository;
 import com.api.retroden.repository.SkillRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class ProfessionalService {
     public ProfessionelResponse findById(Long id) {
         return  professionalRepository.findById(id)
                 .map(professionalMapper::toProfessionelResponse)
-                .orElseThrow(() -> new RuntimeException("Professional not found with id" + id));
+                .orElseThrow(() -> new EntityNotFoundException("Professionel not found with id" + id));
     }
 
     public ProfessionelResponse create(ProfessionelRequest professionalRequest) {
