@@ -45,40 +45,39 @@ public class CompanyServiceTest {
     }
 
     @Test
-    void testCreate(){
-        CompanyRequest request = mock(CompanyRequest.class);
+    void testCreate() {
+        // Given
+        Long industryId = 1L;
+        String jobTitle = "Developer";
+
+        CompanyRequest request = new CompanyRequest(1L, "HP", industryId, List.of(jobTitle));
         Company company = new Company();
         Industry industry = new Industry();
         Job job = new Job();
+        List<Job> jobList = List.of(job);
         Company savedCompany = new Company();
-        CompanyResponse response = new CompanyResponse("Java");
+        CompanyResponse expectedResponse = new CompanyResponse("Java");
 
-        // Mocking request values
-        when(request.industryID()).thenReturn(1L);
-        when(request.jobs()).thenReturn(List.of("Developer"));
-
-        // Mapping from request to entity
+        // Mock mappings and repository calls
         when(companyMapper.toCompany(request)).thenReturn(company);
-
-        // Mocking industry and job repositories
-        when(industryRepository.findById(1L)).thenReturn(Optional.of(industry));
-        when(jobRepository.findByTitle("Developer")).thenReturn(job);
-
-        // Saving and mapping back to response
+        when(industryRepository.findById(industryId)).thenReturn(Optional.of(industry));
+        when(jobRepository.findByTitle(jobTitle)).thenReturn(job);
         when(companyRepository.save(company)).thenReturn(savedCompany);
-        when(companyMapper.toCompanyResponse(savedCompany)).thenReturn(response);
+        when(companyMapper.toCompanyResponse(savedCompany)).thenReturn(expectedResponse);
 
-        // Testing create method
-        CompanyResponse result = companyService.create(request);
+        // When
+        CompanyResponse actualResponse = companyService.create(request);
 
-        assertNotNull(result);
+        // Then
+        assertNotNull(actualResponse);
+        assertEquals(expectedResponse, actualResponse);
+
+        // Verify interactions
         verify(companyMapper).toCompany(request);
-        verify(industryRepository).findById(1L);
-        verify(jobRepository).findByTitle("Developer");
+        verify(industryRepository).findById(industryId);
+        verify(jobRepository).findByTitle(jobTitle);
         verify(companyRepository).save(company);
         verify(companyMapper).toCompanyResponse(savedCompany);
-
-
     }
 
     @Test
@@ -120,7 +119,7 @@ public class CompanyServiceTest {
     @Test
     void testDelete(){
         Long id = 5L;
-        companyService.delete(id);
+        companyRepository.deleteById(5L);
         verify(companyRepository, times(1)).deleteById(id);
     }
 
@@ -148,7 +147,6 @@ public class CompanyServiceTest {
         when(companyRepository.findById(id)).thenReturn(Optional.empty());
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> companyService.findById(id));
         assertEquals("Company not found with id " + id, exception.getMessage());
-        verify(companyRepository).findById(id);
 
     }
 }

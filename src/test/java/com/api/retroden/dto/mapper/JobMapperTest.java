@@ -27,7 +27,7 @@ public class JobMapperTest {
         JobRequest request = new JobRequest(idJob,
                                             title,
                                             description,
-                                            company.getIdCompany());
+                                            company.getId());
         Job result = jobMapper.toJob(request);
         assertNotNull(result);
         assertEquals(idJob, result.getIdJob());

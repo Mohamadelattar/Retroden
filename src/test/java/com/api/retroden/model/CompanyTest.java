@@ -23,7 +23,7 @@ public class CompanyTest {
                                         name,
                                         industry,
                                         jobs);
-        assertEquals(idCompany, company.getIdCompany());
+        assertEquals(idCompany, company.getId());
         assertEquals(name, company.getName());
         assertEquals(industry, company.getIndustry());
         assertEquals(jobs, company.getJobs());
@@ -31,13 +31,13 @@ public class CompanyTest {
     @Test
     void shouldCreateCompanyUsingBuilder() {
         Company company = Company.builder()
-                                 .idCompany(idCompany)
+                                 .id(idCompany)
                                  .name(name)
                                  .industry(industry)
                                  .jobs(jobs)
                                  .build();
 
-        assertEquals(idCompany, company.getIdCompany());
+        assertEquals(idCompany, company.getId());
         assertEquals(name, company.getName());
         assertEquals(industry, company.getIndustry());
         assertEquals(jobs, company.getJobs());
@@ -47,12 +47,12 @@ public class CompanyTest {
     @Test
     void shouldCreateCompanyUsingSetter() {
         Company company = new Company();
-        company.setIdCompany(idCompany);
+        company.setId(idCompany);
         company.setName(name);
         company.setIndustry(industry);
         company.setJobs(jobs);
 
-        assertEquals(idCompany, company.getIdCompany());
+        assertEquals(idCompany, company.getId());
         assertEquals(name, company.getName());
         assertEquals(industry, company.getIndustry());
         assertEquals(jobs, company.getJobs());

@@ -35,14 +35,14 @@ public class CompanyMapperTest {
                                                     jobTitles);
         Company result = companyMapper.toCompany(request);
         assertNotNull(result);
-        assertEquals(idCompany,result.getIdCompany());
+        assertEquals(idCompany,result.getId());
         assertEquals(name,result.getName());
     }
 
     @Test
     void testToCompanyResponse() {
         Company company = Company.builder()
-                .idCompany(idCompany)
+                .id(idCompany)
                 .name(name)
                 .build();
         CompanyResponse response = companyMapper.toCompanyResponse(company);

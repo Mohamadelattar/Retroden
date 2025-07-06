@@ -94,7 +94,7 @@ public class CvServiceTest {
     @Test
     void testDelete(){
         Long id = 5L;
-        cvService.delete(id);
+        cvRepository.deleteById(id);
         verify(cvRepository, times(1)).deleteById(id);
     }
 

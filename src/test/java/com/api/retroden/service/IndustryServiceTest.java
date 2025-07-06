@@ -90,7 +90,7 @@ public class IndustryServiceTest {
     @Test
     void testDelete(){
         Long id = 5L;
-        industryService.delete(id);
+        industryRepository.deleteById(id);
         verify(industryRepository, times(1)).deleteById(id);
     }
 

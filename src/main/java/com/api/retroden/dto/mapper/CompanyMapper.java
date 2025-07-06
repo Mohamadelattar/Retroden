@@ -3,7 +3,6 @@ package com.api.retroden.dto.mapper;
 import com.api.retroden.dto.request.CompanyRequest;
 import com.api.retroden.dto.response.CompanyResponse;
 import com.api.retroden.model.Company;
-import jdk.jfr.Category;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class CompanyMapper {
     public Company toCompany(CompanyRequest companyRequest) {
         return Company.builder()
-                .idCompany(companyRequest.id())
+                .id(companyRequest.id())
                 .name(companyRequest.name())
                 .build();
     }
