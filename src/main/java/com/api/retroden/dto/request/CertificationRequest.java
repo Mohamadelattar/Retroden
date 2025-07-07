@@ -6,4 +6,5 @@ public record CertificationRequest(Long id,
                                    Long professionalId)
 {
 
+
 }
