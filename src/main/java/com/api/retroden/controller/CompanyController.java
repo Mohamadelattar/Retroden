@@ -17,6 +17,11 @@ public class CompanyController {
     public CompanyController(CompanyService companyService) {
         this.companyService = companyService;
     }
+    @PostMapping
+    public ResponseEntity<?> createCompany(@RequestBody @Valid CompanyRequest companyRequest) {
+        this.companyService.create(companyRequest);
+        return ResponseEntity.accepted().body("Company created");
+    }
     @GetMapping("/{id}")
     public ResponseEntity<CompanyResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(companyService.findById(id));
@@ -25,8 +30,8 @@ public class CompanyController {
     public ResponseEntity<List<CompanyResponse>> findAll() {
         return ResponseEntity.ok(companyService.findAll());
     }
-    @PostMapping
-    public ResponseEntity<CompanyResponse> createCompany(@RequestBody @Valid CompanyRequest companyRequest) {
+    @PutMapping
+    public ResponseEntity<CompanyResponse> updateCompany(@RequestBody @Valid CompanyRequest companyRequest) {
         return ResponseEntity.ok(companyService.update(companyRequest));
     }
     @DeleteMapping

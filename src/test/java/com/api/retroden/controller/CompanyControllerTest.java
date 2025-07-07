@@ -1,12 +1,11 @@
 package com.api.retroden.controller;
 
-import com.api.retroden.dto.request.CertificationRequest;
-import com.api.retroden.dto.response.CertificationResponse;
-import com.api.retroden.model.Certification;
-import com.api.retroden.service.CertificationService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.api.retroden.dto.request.CompanyRequest;
+import com.api.retroden.dto.response.CompanyResponse;
+import com.api.retroden.service.CompanyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,66 +16,63 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.List;
 
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(CertificationController.class)
-public class CertificationControllerTest {
+@WebMvcTest(CompanyController.class)
+public class CompanyControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private CertificationService certificationService;
+    private CompanyService companyService;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
     void testCreate() throws Exception {
-        CertificationRequest request = new CertificationRequest(1L, "JAVA17", new byte[]{1, 2, 3}, 1L);
-        mockMvc.perform(post("/certification")
+        CompanyRequest request = new CompanyRequest(1L, "HP", 1L, List.of("Software Enginner"));
+        mockMvc.perform(post("/company")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isAccepted())
-                .andExpect(content().string("Certification created"));
+                .andExpect(content().string("Company created"));
     }
 
     @Test
     void testGetById() throws Exception {
-        CertificationResponse response = new CertificationResponse();
-        Mockito.when(certificationService.findById(1L)).thenReturn(response);
-        mockMvc.perform(get("/certification/1"))
+        CompanyResponse response = new CompanyResponse();
+        Mockito.when(companyService.findById(Mockito.anyLong())).thenReturn(response);
+
+        mockMvc.perform(get("/company/1"))
                 .andExpect(status().isOk());
     }
 
     @Test
     void testGetAll() throws Exception {
-        List<CertificationResponse> responses = Arrays.asList(new CertificationResponse(), new CertificationResponse(), new CertificationResponse());
-        Mockito.when(certificationService.findAll()).thenReturn(responses);
-
-        mockMvc.perform(get("/certification"))
+        List<CompanyResponse> responses = List.of(new CompanyResponse());
+        Mockito.when(companyService.findAll()).thenReturn(responses);
+        mockMvc.perform(get("/company"))
                 .andExpect(status().isOk());
     }
 
     @Test
     void testUpdate() throws Exception {
-        CertificationRequest request = new CertificationRequest(1L, "JAVA17", new byte[]{1, 2, 3}, 1L);
-        CertificationResponse updated= new CertificationResponse();
-        Mockito.when(certificationService.update(request)).thenReturn(updated);
+        CompanyRequest request = new CompanyRequest(1L, "HP", 1L, List.of("Software Enginner"));
+        CompanyResponse updated = new CompanyResponse();
+        Mockito.when(companyService.findById(Mockito.anyLong())).thenReturn(updated);
 
-        mockMvc.perform(put("/certification")
+        mockMvc.perform(put("/company")
         .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(request)))
+                .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk());
     }
 
     @Test
     void testDelete() throws Exception {
-        mockMvc.perform(delete("/certification?id=1"))
+        mockMvc.perform(delete("/company?id=1"))
                 .andExpect(status().isOk());
     }
-
-
 }
