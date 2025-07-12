@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/jobs")
+@RequestMapping("/job")
 public class JobController {
     private final JobService jobService;
 
@@ -18,7 +18,7 @@ public class JobController {
         this.jobService = jobService;
     }
     @GetMapping("/{id}")
-    public ResponseEntity<JobResponse> findById(@RequestParam Long id) {
+    public ResponseEntity<JobResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(jobService.findById(id));
     }
     @GetMapping
