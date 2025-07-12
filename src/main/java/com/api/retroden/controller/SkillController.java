@@ -19,7 +19,7 @@ public class SkillController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SkillResponse> findById(@RequestParam Long id) {
+    public ResponseEntity<SkillResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(skillService.findById(id));
     }
     @GetMapping
