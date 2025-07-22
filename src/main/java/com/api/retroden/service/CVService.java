@@ -38,7 +38,7 @@ public class CVService {
     }
     public CVResponse create(CvRequest cvRequest) {
         var cv = cvMapper.toCV(cvRequest);
-        cv.setProfessional(findCvProfessionelById(cvRequest.id()));
+        cv.setProfessionel(findCvProfessionelById(cvRequest.id()));
         var savedCv = cvRepository.save(cv);
         return cvMapper.toCvResponse(savedCv);
     }
@@ -48,7 +48,7 @@ public class CVService {
                 .map(existingCV -> {
                     Optional.ofNullable(cvRequest.name()).ifPresent(existingCV::setName);
                     Optional.ofNullable(cvRequest.data()).ifPresent(existingCV::setData);
-                    Optional.ofNullable(findCvProfessionelById(cvRequest.id())).ifPresent(existingCV::setProfessional);
+                    Optional.ofNullable(findCvProfessionelById(cvRequest.id())).ifPresent(existingCV::setProfessionel);
                     return cvRepository.save(existingCV);
                 }).orElseThrow(() -> new RuntimeException("CV not found with id: " + cvRequest.id())));
     }

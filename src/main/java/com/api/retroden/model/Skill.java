@@ -16,13 +16,14 @@ public class Skill {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idSkill;
 
     @Column(name = "skillName")
     private String skillName;
 
     @ManyToOne
-    @JoinColumn(name = "professional_id")
-    private Professionel professional;
+    @JoinColumn(name = "professionel_id")
+    private Professionel professionel;
 
 }

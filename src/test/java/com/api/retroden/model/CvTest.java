@@ -22,19 +22,19 @@ public class CvTest {
         assertEquals(idCv,cv.getIdCV());
         assertEquals(name,cv.getName());
         assertEquals(data,cv.getData());
-        assertEquals(professionel,cv.getProfessional());
+        assertEquals(professionel,cv.getProfessionel());
     }
     @Test
     void shouldCreateCvUsingBuilder(){
         CV cv = CV.builder().idCV(idCv)
                 .name(name)
                 .data(data)
-                .professional(professionel)
+                .professionel(professionel)
                 .build();
         assertEquals(idCv,cv.getIdCV());
         assertEquals(name,cv.getName());
         assertEquals(data,cv.getData());
-        assertEquals(professionel,cv.getProfessional());
+        assertEquals(professionel,cv.getProfessionel());
     }
 
     @Test
@@ -43,12 +43,12 @@ public class CvTest {
         cv.setIdCV(idCv);
         cv.setName(name);
         cv.setData(data);
-        cv.setProfessional(professionel);
+        cv.setProfessionel(professionel);
 
         assertEquals(idCv,cv.getIdCV());
         assertEquals(name,cv.getName());
         assertEquals(data,cv.getData());
-        assertEquals(professionel,cv.getProfessional());
+        assertEquals(professionel,cv.getProfessionel());
     }
 
 }

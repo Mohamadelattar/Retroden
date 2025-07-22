@@ -1,10 +1,7 @@
 package com.api.retroden.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Entity
@@ -15,7 +12,8 @@ import lombok.NoArgsConstructor;
 public class Certification {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_certification")
     private Long idCertification;
 
     @Column(name = "name")
@@ -25,8 +23,8 @@ public class Certification {
     private byte[] data;
 
     @ManyToOne
-    @JoinColumn(name = "professional_id")
-    private Professionel professional;
+    @JoinColumn(name = "professionel_id")
+    private Professionel professionel;
 
 
 }

@@ -6,7 +6,6 @@ import com.api.retroden.dto.response.CertificationResponse;
 import com.api.retroden.model.Certification;
 import com.api.retroden.model.Professionel;
 import com.api.retroden.repository.CertificationRepository;
-import com.api.retroden.repository.ProfessionelRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class CertificationService {
     }
     public CertificationResponse create(CertificationRequest certificationRequest){
         var certification = certificationMapper.toCertification(certificationRequest);
-        certification.setProfessional(findCertificationProfessionelById(certificationRequest.professionalId()));
+        certification.setProfessionel(findCertificationProfessionelById(certificationRequest.professionalId()));
         var savedCertification = certificationRepository.save(certification);
         return certificationMapper.toCertificationResponse(savedCertification);
     }

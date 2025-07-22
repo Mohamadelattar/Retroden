@@ -21,6 +21,6 @@ public class CV {
     @Column(name = "data")
     private byte[] data;
     @OneToOne
-    @JoinColumn(name = "professional_id")
-    private  Professionel  professional;
+    @JoinColumn(name = "professionel_id")
+    private  Professionel  professionel;
 }

@@ -38,13 +38,13 @@ public class Professionel {
     @Column(name = "availability")
     private Availability availability;
 
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "professionel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Skill> skills;
 
-    @OneToOne(mappedBy = "professional", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "professionel", cascade = CascadeType.ALL)
     private CV cv;
 
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "professionel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Certification> certifications;
 
 }

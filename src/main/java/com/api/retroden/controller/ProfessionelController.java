@@ -18,7 +18,7 @@ public class ProfessionelController {
         this.professionalService = professionalService;
     }
     @PostMapping
-    public ResponseEntity<?> createCertification(@RequestBody @Valid ProfessionelRequest professionelRequest) {
+    public ResponseEntity<?> createCertification(@RequestBody  ProfessionelRequest professionelRequest) {
         this.professionalService.create(professionelRequest);
         return ResponseEntity.accepted().body("Professionel created");
     }
