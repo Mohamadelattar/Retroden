@@ -50,7 +50,7 @@ public class CertificationServiceTest {
         CertificationResponse result = certificationService.create(request);
 
         assertEquals(response,result);
-        verify(certification).setProfessional(professionel);
+        verify(certification).setProfessionel(professionel);
 
     }
     @Test
@@ -91,13 +91,13 @@ public class CertificationServiceTest {
         existing.setIdCertification(1L);
         existing.setName("Java");
         existing.setData(new byte[]{1, 2, 3});
-        existing.setProfessional(new Professionel());
+        existing.setProfessionel(new Professionel());
 
         Certification updated = new Certification();
         updated.setIdCertification(1L);
         updated.setName("Java");
         updated.setData(new byte[]{1, 2, 3});
-        updated.setProfessional(new Professionel());
+        updated.setProfessionel(new Professionel());
 
         CertificationResponse response = new CertificationResponse("Java");
 
@@ -109,7 +109,7 @@ public class CertificationServiceTest {
 
         assertEquals(response, result);
         assertEquals(updated.getName(), existing.getName());
-        assertEquals(updated.getProfessional().getIdProfessionel(), existing.getProfessional().getIdProfessionel());
+        assertEquals(updated.getProfessionel().getIdProfessionel(), existing.getProfessionel().getIdProfessionel());
 
     }
     @Test

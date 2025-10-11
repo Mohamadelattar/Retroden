@@ -17,7 +17,7 @@ public class SkillTest {
         Skill skill = new Skill(idSkill,skillName,professionel);
         assertEquals(idSkill,skill.getIdSkill());
         assertEquals(skillName,skill.getSkillName());
-        assertEquals(professionel,skill.getProfessional());
+        assertEquals(professionel,skill.getProfessionel());
     }
 
     @Test
@@ -25,11 +25,11 @@ public class SkillTest {
         Skill skill = Skill.builder()
                 .idSkill(idSkill)
                 .skillName(skillName)
-                .professional(professionel)
+                .professionel(professionel)
                 .build();
         assertEquals(idSkill,skill.getIdSkill());
         assertEquals(skillName,skill.getSkillName());
-        assertEquals(professionel,skill.getProfessional());
+        assertEquals(professionel,skill.getProfessionel());
 
     }
 
@@ -38,9 +38,9 @@ public class SkillTest {
         Skill skill = new Skill();
         skill.setIdSkill(idSkill);
         skill.setSkillName(skillName);
-        skill.setProfessional(professionel);
+        skill.setProfessionel(professionel);
         assertEquals(idSkill,skill.getIdSkill());
         assertEquals(skillName,skill.getSkillName());
-        assertEquals(professionel,skill.getProfessional());
+        assertEquals(professionel,skill.getProfessionel());
     }
 }

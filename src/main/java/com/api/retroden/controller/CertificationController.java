@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/certification")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CertificationController {
 
     private final CertificationService certificationService;

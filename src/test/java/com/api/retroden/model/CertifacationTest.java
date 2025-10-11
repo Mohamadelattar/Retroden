@@ -20,7 +20,7 @@ public class CertifacationTest {
         assertEquals(idCertification, certification.getIdCertification());
         assertEquals(name, certification.getName());
         assertEquals(data, certification.getData());
-        assertEquals(professionel,certification.getProfessional());
+        assertEquals(professionel,certification.getProfessionel());
     }
 
     @Test
@@ -29,12 +29,12 @@ public class CertifacationTest {
                 .idCertification(idCertification)
                 .name(name)
                 .data(data)
-                .professional(professionel)
+                .professionel(professionel)
                 .build();
         assertEquals(idCertification, certification.getIdCertification());
         assertEquals(name, certification.getName());
         assertEquals(data, certification.getData());
-        assertEquals(professionel,certification.getProfessional());
+        assertEquals(professionel,certification.getProfessionel());
 
     }
     @Test
@@ -43,11 +43,11 @@ public class CertifacationTest {
         certification.setIdCertification(idCertification);
         certification.setName(name);
         certification.setData(data);
-        certification.setProfessional(professionel);
+        certification.setProfessionel(professionel);
         
         assertEquals(idCertification, certification.getIdCertification());
         assertEquals(name, certification.getName());
         assertEquals(data, certification.getData());
-        assertEquals(professionel,certification.getProfessional());
+        assertEquals(professionel,certification.getProfessionel());
     }
 }
