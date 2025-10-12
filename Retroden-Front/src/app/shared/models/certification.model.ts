@@ -1,3 +1,4 @@
 export interface Certification {
-  // Add properties here
+  id?: number;
+  name: string;
 }
