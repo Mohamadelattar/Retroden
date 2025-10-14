@@ -1,0 +1,43 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 1.5rem;
+}
+
+.logo {
+  color: #0a66c2;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.search-bar {
+  width: 300px;
+  max-width: 100%;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 0.95rem;
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: #0a66c2;
+  box-shadow: 0 0 0 2px rgba(10, 102, 194, 0.2);
+}
+
+.nav-right a {
+  color: #333;
+  margin-left: 1rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-right a:hover {
+  color: #0a66c2;
+}

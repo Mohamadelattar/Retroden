@@ -1,0 +1,21 @@
+<div class="container mt-3">
+  <h2>{{ isEdit ? 'Edit Certification' : 'Add Certification' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Certification Name</label>
+      <input
+        id="name"
+        type="text"
+        class="form-control"
+        formControlName="name"
+        placeholder="Enter certification name"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-success">
+      {{ isEdit ? 'Update' : 'Create' }}
+    </button>
+    <a routerLink="/certifications" class="btn btn-secondary ms-2">Cancel</a>
+  </form>
+</div>

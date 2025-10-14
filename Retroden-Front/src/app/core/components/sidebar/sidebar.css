@@ -1,0 +1,54 @@
+.sidebar {
+  flex: 0 0 250px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  height: fit-content;
+}
+
+.profile-card {
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin: 0 auto 0.5rem;
+}
+
+.profile-card h3 {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 1.1rem;
+}
+
+.profile-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.sidebar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 0.75rem;
+}
+
+.sidebar-menu a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sidebar-menu a:hover {
+  color: #0a66c2;
+}
