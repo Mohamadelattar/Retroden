@@ -1,1 +1,33 @@
-<p>company-list works!</p>
+<div class="container mt-4">
+  <!-- Header -->
+  <div class="d-flex justify-between align-center mb-3">
+    <h2>Companies</h2>
+    <a routerLink="create" class="btn btn-primary">+ Add Company</a>
+  </div>
+
+  <!-- Companies Table -->
+  <table class="table table-hover table-bordered">
+    <thead class="table-light">
+    <tr>
+      <th>ID</th>
+      <th>Company Name</th>
+      <th style="width: 180px;">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.id }}</td>
+      <td>{{ company.name }}</td>
+      <td class="d-flex gap-2">
+        <a [routerLink]="['edit', company.id]" class="btn btn-secondary btn-sm">Edit</a>
+        <button class="btn btn-secondary btn-sm" (click)="deleteCompany(company.id!)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- No companies message -->
+  <p *ngIf="companies.length === 0" class="text-center mt-3">
+    No companies available. Click "+ Add Company" to create one.
+  </p>
+</div>

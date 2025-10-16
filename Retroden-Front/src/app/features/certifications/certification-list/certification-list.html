@@ -1,5 +1,40 @@
-<ul>
-  <li *ngFor="let cert of certifications">{{ cert.name }}</li>
-</ul>
+<div class="container mt-4">
+  <!-- Header section -->
+  <div class="d-flex justify-between align-center mb-3">
+    <h2>Certifications</h2>
+    <a routerLink="/certifications/create" class="btn btn-primary">+ Add Certification</a>
+  </div>
 
+  <!-- Card container -->
+  <div class="card">
+    <!-- Show message if no certifications -->
+    <div *ngIf="certifications.length === 0" class="text-center mt-3 mb-3">
+      <p>No certifications found.</p>
+    </div>
 
+    <!-- Certification table -->
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Certification Name</th>
+        <th class="text-center" style="width: 180px;">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (cert of certifications; track cert.id) {
+          <tr>
+            <td>{{ cert.id }}</td>
+            <td>{{ cert.name }}</td>
+            <td class="text-center">
+              <div class="d-flex">
+                <a [routerLink]="['/edit', cert.id]" class="btn btn-secondary">Edit</a>
+                <button class="btn btn-secondary" (click)="deleteCertification(cert.id!)">Delete</button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

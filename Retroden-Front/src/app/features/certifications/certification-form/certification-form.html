@@ -1,21 +1,55 @@
-<div class="container mt-3">
-  <h2>{{ isEdit ? 'Edit Certification' : 'Add Certification' }}</h2>
+<div class="container mt-4">
+  <div class="card p-4">
+    <h2 class="mb-4">{{ isEdit ? 'Edit Certification' : 'Add Certification' }}</h2>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="mb-3">
-      <label for="name" class="form-label">Certification Name</label>
-      <input
-        id="name"
-        type="text"
-        class="form-control"
-        formControlName="name"
-        placeholder="Enter certification name"
-      />
-    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
 
-    <button type="submit" class="btn btn-success">
-      {{ isEdit ? 'Update' : 'Create' }}
-    </button>
-    <a routerLink="/certifications" class="btn btn-secondary ms-2">Cancel</a>
-  </form>
+      <!-- Certification Name -->
+      <div class="form-group mb-3">
+        <label for="name" class="form-label">Certification Name</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          class="form-control"
+          placeholder="e.g. AWS Certified Solutions Architect"
+        />
+
+        @if (form.get('name')?.invalid && form.get('name')?.touched) {
+          <div class="text-danger">Name is required</div>
+        }
+      </div>
+
+      <!-- PDF Upload -->
+      <div class="form-group mb-3">
+        <label class="form-label">Upload PDF</label>
+
+        <div class="custom-file-wrapper">
+          <input
+            id="data"
+            type="file"
+            (change)="onFileChange($event)"
+            accept="application/pdf"
+          />
+          <span class="custom-file-label">
+      @if (form.get('data')?.value) {
+        {{ form.get('data')?.value?.split(',')[0] | slice:0:20 }}...
+      } @else {
+        Choose file
+      }
+    </span>
+        </div>
+      </div>
+
+
+      <!-- Buttons -->
+      <div class="d-flex justify-between mt-4">
+        <button type="submit" class="btn btn-primary">
+          {{ isEdit ? 'Update' : 'Create' }}
+        </button>
+        <a routerLink="/certifications" class="btn btn-secondary">Cancel</a>
+      </div>
+
+    </form>
+  </div>
 </div>

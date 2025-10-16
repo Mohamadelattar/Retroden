@@ -1,0 +1,19 @@
+.container {
+  max-width: 800px;
+}
+
+h2 {
+  font-weight: 600;
+  color: #0a66c2;
+}
+
+.table {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background-color: #0a66c2;
+  border-color: #0a66c2;
+}

@@ -1,3 +1,4 @@
 export interface Company {
-  // Add properties here
+  id?: number;
+  name: string;
 }

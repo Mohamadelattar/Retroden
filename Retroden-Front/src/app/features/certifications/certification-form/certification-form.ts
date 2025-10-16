@@ -33,6 +33,19 @@ export class CertificationForm {
       this.certificationService.getById(id).subscribe(cert => this.form.patchValue(cert));
     }
   }
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file && file.type === 'application/pdf') {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.form.patchValue({ data: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert('Please upload a valid PDF file.');
+    }
+  }
+
 
   onSubmit(): void {
     if (this.form.invalid) return;
@@ -51,4 +64,5 @@ export class CertificationForm {
       });
     }
   }
+
 }

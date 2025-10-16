@@ -1,1 +1,31 @@
-<p>company-form works!</p>
+<div class="container mt-4">
+  <div class="card p-4">
+    <h2 class="mb-4">{{ isEdit ? 'Edit Company' : 'Add Company' }}</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <!-- Company Name -->
+      <div class="form-group mb-3">
+        <label class="form-label">Company Name</label>
+        <input
+          formControlName="name"
+          type="text"
+          class="form-control"
+          placeholder="e.g. Google"
+        />
+        @if (form.get('name')?.invalid && form.get('name')?.touched) {
+          <div class="text-danger">Name is required</div>
+        }
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex justify-between mt-4">
+        <button type="submit" class="btn btn-primary">
+          {{ isEdit ? 'Update' : 'Create' }}
+        </button>
+        <a routerLink="/companies" class="btn btn-secondary">Cancel</a>
+      </div>
+
+    </form>
+  </div>
+</div>
