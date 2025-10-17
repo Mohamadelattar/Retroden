@@ -20,8 +20,9 @@ export const routes: Routes = [
   {
     path: 'companies',
     loadChildren: () =>
-      import('./features/companies/companies-module').then(m => m.CompaniesModule)
-  },
+      import('./features/companies/companies-routing-module').then(m => m.companyRoutes)
+  }
+  ,
   {
     path: 'skills',
     loadChildren: () =>

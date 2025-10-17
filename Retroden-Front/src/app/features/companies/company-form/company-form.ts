@@ -29,7 +29,10 @@ export class CompanyForm {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
       this.isEdit = true;
-      this.companyService.getById(id).subscribe(company => this.form.patchValue(company));
+      this.companyService.getById(id).subscribe({
+        next: (data) => this.form.patchValue(data),
+        error: (err) => console.error('Error fetching company', err)
+      });
     }
   }
 
@@ -39,15 +42,20 @@ export class CompanyForm {
     const company: Company = this.form.value;
 
     if (this.isEdit) {
-      const id = company.id!;
-      this.companyService.update(id, company).subscribe(() => {
-        alert('Company updated successfully!');
-        this.router.navigate(['/companies']);
+      this.companyService.update(company.id!, company).subscribe({
+        next: () => {
+          alert('Company updated successfully!');
+          this.router.navigate(['/companies']);
+        },
+        error: (err) => console.error('Update failed', err)
       });
     } else {
-      this.companyService.create(company).subscribe(() => {
-        alert('Company created successfully!');
-        this.router.navigate(['/companies']);
+      this.companyService.create(company).subscribe({
+        next: () => {
+          alert('Company created successfully!');
+          this.router.navigate(['/companies']);
+        },
+        error: (err) => console.error('Create failed', err)
       });
     }
   }
