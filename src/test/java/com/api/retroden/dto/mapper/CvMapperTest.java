@@ -3,7 +3,7 @@ package com.api.retroden.dto.mapper;
 import com.api.retroden.dto.request.CvRequest;
 import com.api.retroden.dto.response.CVResponse;
 import com.api.retroden.model.CV;
-import com.api.retroden.model.Professionel;
+import com.api.retroden.model.Professional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ public class CvMapperTest {
     private final Long idCv = 1L;
     private final String name = "Cv";
     private final byte[] data = {1,2,3,4,5,6,7,8,9};
-    private final Professionel professionel = mock(Professionel.class);
+    private final Professional professional = mock(Professional.class);
 
     @BeforeEach
     void setUp() {
@@ -27,7 +27,7 @@ public class CvMapperTest {
         CvRequest cvRequest = new CvRequest(idCv,
                 name,
                 data,
-                professionel.getIdProfessionel());
+                professional.getIdProfessional());
         CV result = cvMapper.toCV(cvRequest);
         assertNotNull(result);
         assertEquals(idCv,result.getIdCV());

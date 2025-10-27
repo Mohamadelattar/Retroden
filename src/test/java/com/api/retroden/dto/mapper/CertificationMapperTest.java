@@ -3,10 +3,9 @@ package com.api.retroden.dto.mapper;
 import com.api.retroden.dto.request.CertificationRequest;
 import com.api.retroden.dto.response.CertificationResponse;
 import com.api.retroden.model.Certification;
-import com.api.retroden.model.Professionel;
+import com.api.retroden.model.Professional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,7 +15,7 @@ public class CertificationMapperTest {
     private CertificationMapper certificationMapper;
     private  final Long idCertification = 1L;
     private final String name = "Java Cert";
-    private final Professionel professionel = mock(Professionel.class);
+    private final Professional professional = mock(Professional.class);
     private final byte[] data = {1,2,3};
 
     @BeforeEach
@@ -28,7 +27,7 @@ public class CertificationMapperTest {
         CertificationRequest request = new CertificationRequest(idCertification,
                 name,
                 data,
-                professionel.getIdProfessionel());
+                professional.getIdProfessional());
         Certification result = certificationMapper.toCertification(request);
         assertNotNull(result);
         assertEquals(idCertification,result.getIdCertification());

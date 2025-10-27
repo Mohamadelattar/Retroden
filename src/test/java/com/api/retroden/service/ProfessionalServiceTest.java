@@ -1,12 +1,12 @@
 package com.api.retroden.service;
 
 import com.api.retroden.dto.mapper.ProfessionalMapper;
-import com.api.retroden.dto.request.ProfessionelRequest;
-import com.api.retroden.dto.response.ProfessionelResponse;
+import com.api.retroden.dto.request.ProfessionalRequest;
+import com.api.retroden.dto.response.ProfessionalResponse;
 import com.api.retroden.model.*;
 import com.api.retroden.repository.CVRepository;
 import com.api.retroden.repository.CertificationRepository;
-import com.api.retroden.repository.ProfessionelRepository;
+import com.api.retroden.repository.ProfessionalRepository;
 import com.api.retroden.repository.SkillRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,9 +21,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class ProfessionelServiceTest {
+public class ProfessionalServiceTest {
     @Mock
-    private ProfessionelRepository professionelRepository;
+    private ProfessionalRepository professionelRepository;
 
     @Mock
     private SkillRepository skillRepository;
@@ -48,7 +48,7 @@ public class ProfessionelServiceTest {
     @Test
     void testCreate(){
 
-        ProfessionelRequest request = new ProfessionelRequest(1L,
+        ProfessionalRequest request = new ProfessionalRequest(1L,
                                                         "firstName",
                                                         "lastName",
                                                             "email@email.com",
@@ -57,15 +57,15 @@ public class ProfessionelServiceTest {
         Skill skill = mock(Skill.class);
         CV cv = mock(CV.class);
         Certification certification = new Certification();
-        Professionel professionel = new Professionel();
-        Professionel savedProfessionel = new Professionel();
-        ProfessionelResponse response = new ProfessionelResponse();
+        Professional professional = new Professional();
+        Professional savedProfessional = new Professional();
+        ProfessionalResponse response = new ProfessionalResponse();
 
 
 
 
         // Mapping from request to entity
-        when(professionalMapper.toProfessionel(request)).thenReturn(professionel);
+        when(professionalMapper.toProfessional(request)).thenReturn(professional);
 
         // Mocking cv - skills - certification repositories
         when(cvRepository.findById(1L)).thenReturn(Optional.of(cv));
@@ -73,44 +73,44 @@ public class ProfessionelServiceTest {
         when(certificationRepository.findByName("JAVA17")).thenReturn(certification);
 
         // Saving and mapping back to response
-        when(professionelRepository.save(professionel)).thenReturn(savedProfessionel);
-        when(professionalMapper.toProfessionelResponse(savedProfessionel)).thenReturn(response);
+        when(professionelRepository.save(professional)).thenReturn(savedProfessional);
+        when(professionalMapper.toProfessionalResponse(savedProfessional)).thenReturn(response);
 
         // Testing create method
-        ProfessionelResponse result = professionalService.create(request);
+        ProfessionalResponse result = professionalService.create(request);
 
         assertNotNull(result);
         assertEquals(response,result);
-        verify(professionalMapper).toProfessionelResponse(savedProfessionel);
+        verify(professionalMapper).toProfessionalResponse(savedProfessional);
 
     }
 
     @Test
     void testUpdate(){
-        ProfessionelRequest request = new ProfessionelRequest(1L,
+        ProfessionalRequest request = new ProfessionalRequest(1L,
                 "firstName",
                 "lastName",
                 "email@email.com",
                 20,
                 "Agadir",Availability.FULL_TIME,List.of("JAVA"),1L,List.of("JAVA17"));
-        Professionel existingProfessionel = new Professionel();
-        Professionel updatedProfessionel = new Professionel();
-        ProfessionelResponse response = new ProfessionelResponse();
+        Professional existingProfessional = new Professional();
+        Professional updatedProfessional = new Professional();
+        ProfessionalResponse response = new ProfessionalResponse();
         CV savedCV = new CV();
         Certification savedCertification = new Certification();
         Skill savedSkill = new Skill();
 
 
         // Mocking repositories and mapper behaviour
-        when(professionelRepository.findById(1L)).thenReturn(Optional.of(existingProfessionel));
+        when(professionelRepository.findById(1L)).thenReturn(Optional.of(existingProfessional));
         when(cvRepository.findById(1L)).thenReturn(Optional.of(savedCV));
         when(skillRepository.findBySkillName("JAVA")).thenReturn(savedSkill);
         when(certificationRepository.findByName("JAVA17")).thenReturn(savedCertification);
-        when(professionelRepository.save(existingProfessionel)).thenReturn(updatedProfessionel);
-        when(professionalMapper.toProfessionelResponse(updatedProfessionel)).thenReturn(response);
+        when(professionelRepository.save(existingProfessional)).thenReturn(updatedProfessional);
+        when(professionalMapper.toProfessionalResponse(updatedProfessional)).thenReturn(response);
 
         // Testing update method
-        ProfessionelResponse result = professionalService.update(request);
+        ProfessionalResponse result = professionalService.update(request);
         assertNotNull(result);
         assertEquals(response,result);
         assertEquals(response.getAge(),result.getAge());
@@ -129,13 +129,13 @@ public class ProfessionelServiceTest {
     @Test
     void testFindById(){
         Long id = 1L;
-        Professionel professionel = new Professionel();
-        ProfessionelResponse response = new ProfessionelResponse();
+        Professional professional = new Professional();
+        ProfessionalResponse response = new ProfessionalResponse();
 
-        when(professionelRepository.findById(id)).thenReturn(Optional.of(professionel));
-        when(professionalMapper.toProfessionelResponse(professionel)).thenReturn(response);
+        when(professionelRepository.findById(id)).thenReturn(Optional.of(professional));
+        when(professionalMapper.toProfessionalResponse(professional)).thenReturn(response);
 
-        ProfessionelResponse result = professionalService.findById(id);
+        ProfessionalResponse result = professionalService.findById(id);
 
         assertNotNull(result);
         assertEquals(response,result);
@@ -156,15 +156,15 @@ public class ProfessionelServiceTest {
 
     @Test
     void testFindAll(){
-        Professionel professionel = new Professionel();
-        ProfessionelResponse singleResponse = new ProfessionelResponse();
-        List<Professionel> professionels = List.of(professionel);
-        List<ProfessionelResponse> responses = List.of(singleResponse);
+        Professional professional = new Professional();
+        ProfessionalResponse singleResponse = new ProfessionalResponse();
+        List<Professional> professionals = List.of(professional);
+        List<ProfessionalResponse> responses = List.of(singleResponse);
 
-        when(professionelRepository.findAll()).thenReturn(professionels);
-        when(professionalMapper.toProfessionelResponse(professionel)).thenReturn(singleResponse);
+        when(professionelRepository.findAll()).thenReturn(professionals);
+        when(professionalMapper.toProfessionalResponse(professional)).thenReturn(singleResponse);
 
-        List<ProfessionelResponse> result = professionalService.findAll();
+        List<ProfessionalResponse> result = professionalService.findAll();
 
         assertNotNull(result);
         assertEquals(responses, result);

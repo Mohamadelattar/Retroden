@@ -3,8 +3,8 @@ package com.api.retroden.service;
 import com.api.retroden.dto.mapper.SkillMapper;
 import com.api.retroden.dto.request.SkillRequest;
 import com.api.retroden.dto.response.SkillResponse;
-import com.api.retroden.model.Professionel;
-import com.api.retroden.repository.ProfessionelRepository;
+import com.api.retroden.model.Professional;
+import com.api.retroden.repository.ProfessionalRepository;
 import com.api.retroden.repository.SkillRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +15,12 @@ import java.util.Optional;
 public class SkillService {
     private final SkillRepository skillRepository;
     private final SkillMapper skillMapper;
-    private final ProfessionelRepository professionelRepository;
+    private final ProfessionalRepository professionalRepository;
 
-    public SkillService(SkillRepository skillRepository, SkillMapper skillMapper, ProfessionelRepository professionelRepository) {
+    public SkillService(SkillRepository skillRepository, SkillMapper skillMapper, ProfessionalRepository professionalRepository) {
         this.skillRepository = skillRepository;
         this.skillMapper = skillMapper;
-        this.professionelRepository = professionelRepository;
+        this.professionalRepository = professionalRepository;
     }
     public List<SkillResponse> findAll(){
         return skillRepository.findAll()
@@ -55,7 +55,7 @@ public class SkillService {
         skillRepository.deleteById(id);
     }
 
-    public Professionel findProfessionnel(Long id){
-        return professionelRepository.findById(id).orElseThrow(() -> new RuntimeException("Professionel not found with id " + id));
+    public Professional findProfessionnel(Long id){
+        return professionalRepository.findById(id).orElseThrow(() -> new RuntimeException("Professional not found with id " + id));
     }
 }

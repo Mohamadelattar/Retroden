@@ -1,15 +1,14 @@
 package com.api.retroden.service;
 
 import com.api.retroden.dto.mapper.ProfessionalMapper;
-import com.api.retroden.dto.request.ProfessionelRequest;
-import com.api.retroden.dto.response.ProfessionelResponse;
+import com.api.retroden.dto.request.ProfessionalRequest;
+import com.api.retroden.dto.response.ProfessionalResponse;
 import com.api.retroden.model.CV;
 import com.api.retroden.model.Certification;
-import com.api.retroden.model.Professionel;
 import com.api.retroden.model.Skill;
 import com.api.retroden.repository.CVRepository;
 import com.api.retroden.repository.CertificationRepository;
-import com.api.retroden.repository.ProfessionelRepository;
+import com.api.retroden.repository.ProfessionalRepository;
 import com.api.retroden.repository.SkillRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -19,14 +18,14 @@ import java.util.Optional;
 
 @Service
 public class ProfessionalService {
-    private final ProfessionelRepository professionalRepository;
+    private final ProfessionalRepository professionalRepository;
     private final SkillRepository skillRepository;
     private final CertificationRepository certificationRepository;
     private final CVRepository cvRepository;
     private final ProfessionalMapper professionalMapper;
 
 
-    public ProfessionalService(ProfessionelRepository professionalRepository, SkillRepository skillRepository, CertificationRepository certificationRepository, CVRepository cvRepository, ProfessionalMapper professionalMapper) {
+    public ProfessionalService(ProfessionalRepository professionalRepository, SkillRepository skillRepository, CertificationRepository certificationRepository, CVRepository cvRepository, ProfessionalMapper professionalMapper) {
         this.professionalRepository = professionalRepository;
         this.skillRepository = skillRepository;
         this.certificationRepository = certificationRepository;
@@ -34,29 +33,29 @@ public class ProfessionalService {
         this.professionalMapper = professionalMapper;
     }
 
-    public List<ProfessionelResponse> findAll() {
+    public List<ProfessionalResponse> findAll() {
         return professionalRepository.findAll()
                 .stream()
-                .map(professionalMapper::toProfessionelResponse)
+                .map(professionalMapper::toProfessionalResponse)
                 .toList();
     }
-    public ProfessionelResponse findById(Long id) {
+    public ProfessionalResponse findById(Long id) {
         return  professionalRepository.findById(id)
-                .map(professionalMapper::toProfessionelResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Professionel not found with id" + id));
+                .map(professionalMapper::toProfessionalResponse)
+                .orElseThrow(() -> new EntityNotFoundException("Professional not found with id" + id));
     }
 
-    public ProfessionelResponse create(ProfessionelRequest professionalRequest) {
-        var professional = professionalMapper.toProfessionel(professionalRequest);
+    public ProfessionalResponse create(ProfessionalRequest professionalRequest) {
+        var professional = professionalMapper.toProfessional(professionalRequest);
         professional.setSkills(findProfessionalSkills(professionalRequest.skills()));
         professional.setCertifications(findProfessionalCertifications(professionalRequest.certefications()));
         professional.setCv(findProfessionalCVById(professionalRequest.idCv()));
         var savedProfessional = professionalRepository.save(professional);
-        return professionalMapper.toProfessionelResponse(savedProfessional);
+        return professionalMapper.toProfessionalResponse(savedProfessional);
     }
 
-    public ProfessionelResponse update(ProfessionelRequest professionalRequest) {
-        return professionalMapper.toProfessionelResponse( professionalRepository.findById(professionalRequest.id())
+    public ProfessionalResponse update(ProfessionalRequest professionalRequest) {
+        return professionalMapper.toProfessionalResponse( professionalRepository.findById(professionalRequest.id())
                 .map(existingProfessional -> {
                     Optional.ofNullable(professionalRequest.firstName()).ifPresent(existingProfessional::setFirstName);
                     Optional.ofNullable(professionalRequest.lastName()).ifPresent(existingProfessional::setLastName);

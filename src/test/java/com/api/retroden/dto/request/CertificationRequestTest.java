@@ -8,14 +8,14 @@ public class CertificationRequestTest {
     Long id = 1L;
     String name = "Certification Request";
     byte[] data = {1,2,3,4};
-    Long professionelId = 42L;
+    Long professionalId = 42L;
     @Test
     public void testCertificationRequestCreation() {
-        CertificationRequest request = new CertificationRequest(id, name, data, professionelId);
+        CertificationRequest request = new CertificationRequest(id, name, data, professionalId);
         assertEquals(id,request.id());
         assertEquals(name,request.name());
         assertEquals(data,request.data());
-        assertEquals(professionelId,request.professionalId());
+        assertEquals(professionalId,request.professionalId());
     }
 
 }

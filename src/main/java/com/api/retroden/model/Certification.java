@@ -23,8 +23,8 @@ public class Certification {
     private byte[] data;
 
     @ManyToOne
-    @JoinColumn(name = "professionel_id")
-    private Professionel professionel;
+    @JoinColumn(name = "professional_id")
+    private Professional professional;
 
 
 }

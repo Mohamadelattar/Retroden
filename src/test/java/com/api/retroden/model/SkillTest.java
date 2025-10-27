@@ -10,14 +10,14 @@ import static org.mockito.Mockito.mock;
 public class SkillTest {
     private final Long idSkill = 1L;
     private final String skillName = "Skill";
-    private final Professionel professionel = mock(Professionel.class);
+    private final Professional professional = mock(Professional.class);
 
     @Test
     void shouldCreateSkillUsingConstructor() {
-        Skill skill = new Skill(idSkill,skillName,professionel);
+        Skill skill = new Skill(idSkill,skillName, professional);
         assertEquals(idSkill,skill.getIdSkill());
         assertEquals(skillName,skill.getSkillName());
-        assertEquals(professionel,skill.getProfessionel());
+        assertEquals(professional,skill.getProfessional());
     }
 
     @Test
@@ -25,11 +25,11 @@ public class SkillTest {
         Skill skill = Skill.builder()
                 .idSkill(idSkill)
                 .skillName(skillName)
-                .professionel(professionel)
+                .professional(professional)
                 .build();
         assertEquals(idSkill,skill.getIdSkill());
         assertEquals(skillName,skill.getSkillName());
-        assertEquals(professionel,skill.getProfessionel());
+        assertEquals(professional,skill.getProfessional());
 
     }
 
@@ -38,9 +38,9 @@ public class SkillTest {
         Skill skill = new Skill();
         skill.setIdSkill(idSkill);
         skill.setSkillName(skillName);
-        skill.setProfessionel(professionel);
+        skill.setProfessional(professional);
         assertEquals(idSkill,skill.getIdSkill());
         assertEquals(skillName,skill.getSkillName());
-        assertEquals(professionel,skill.getProfessionel());
+        assertEquals(professional,skill.getProfessional());
     }
 }

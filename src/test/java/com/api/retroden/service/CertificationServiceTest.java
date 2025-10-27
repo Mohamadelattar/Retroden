@@ -4,15 +4,14 @@ import com.api.retroden.dto.mapper.CertificationMapper;
 import com.api.retroden.dto.request.CertificationRequest;
 import com.api.retroden.dto.response.CertificationResponse;
 import com.api.retroden.model.Certification;
-import com.api.retroden.model.Professionel;
+import com.api.retroden.model.Professional;
 import com.api.retroden.repository.CertificationRepository;
-import com.api.retroden.repository.ProfessionelRepository;
+import com.api.retroden.repository.ProfessionalRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,33 +23,33 @@ public class CertificationServiceTest {
 
     private CertificationRepository certificationRepository;
     private CertificationMapper certificationMapper;
-    private ProfessionelRepository professionelRepository;
+    private ProfessionalRepository professionalRepository;
     private CertificationService certificationService;
 
     @BeforeEach
     void setUp() {
         certificationRepository = mock(CertificationRepository.class);
         certificationMapper = mock(CertificationMapper.class);
-        professionelRepository = mock(ProfessionelRepository.class);
+        professionalRepository = mock(ProfessionalRepository.class);
         certificationService = new CertificationService(certificationRepository, certificationMapper);
     }
     @Test
     void testCreate(){
         CertificationRequest request = mock(CertificationRequest.class);
         Certification certification = mock(Certification.class);
-        Professionel professionel = mock(Professionel.class);
+        Professional professional = mock(Professional.class);
         Certification savedCertification = mock(Certification.class);
         CertificationResponse response = mock(CertificationResponse.class);
         when(request.professionalId()).thenReturn(1L);
         when(certificationMapper.toCertification(request)).thenReturn(certification);
-        when(certificationRepository.findProfessionelByIdCertification(1L)).thenReturn(professionel);
+        when(certificationRepository.findProfessionelByIdCertification(1L)).thenReturn(professional);
         when(certificationRepository.save(certification)).thenReturn(savedCertification);
         when(certificationMapper.toCertificationResponse(savedCertification)).thenReturn(response);
 
         CertificationResponse result = certificationService.create(request);
 
         assertEquals(response,result);
-        verify(certification).setProfessionel(professionel);
+        verify(certification).setProfessional(professional);
 
     }
     @Test
@@ -91,13 +90,13 @@ public class CertificationServiceTest {
         existing.setIdCertification(1L);
         existing.setName("Java");
         existing.setData(new byte[]{1, 2, 3});
-        existing.setProfessionel(new Professionel());
+        existing.setProfessional(new Professional());
 
         Certification updated = new Certification();
         updated.setIdCertification(1L);
         updated.setName("Java");
         updated.setData(new byte[]{1, 2, 3});
-        updated.setProfessionel(new Professionel());
+        updated.setProfessional(new Professional());
 
         CertificationResponse response = new CertificationResponse("Java");
 
@@ -109,7 +108,7 @@ public class CertificationServiceTest {
 
         assertEquals(response, result);
         assertEquals(updated.getName(), existing.getName());
-        assertEquals(updated.getProfessionel().getIdProfessionel(), existing.getProfessionel().getIdProfessionel());
+        assertEquals(updated.getProfessional().getIdProfessional(), existing.getProfessional().getIdProfessional());
 
     }
     @Test
@@ -120,9 +119,9 @@ public class CertificationServiceTest {
 
     @Test
     void testFindCertificationProfessionelById(){
-        Professionel professionel = new Professionel();
-        when(certificationRepository.findProfessionelByIdCertification(1L)).thenReturn(professionel);
-        Professionel result = certificationService.findCertificationProfessionelById(1L);
-        assertEquals(professionel, result);
+        Professional professional = new Professional();
+        when(certificationRepository.findProfessionelByIdCertification(1L)).thenReturn(professional);
+        Professional result = certificationService.findCertificationProfessionelById(1L);
+        assertEquals(professional, result);
     }
 }

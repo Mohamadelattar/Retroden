@@ -10,15 +10,15 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "professionel")
+@Table(name = "professional")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Professionel {
+public class Professional {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idProfessionel;
+    private Long idProfessional;
 
     @Column(name = "firstName")
     private String firstName;
@@ -38,13 +38,13 @@ public class Professionel {
     @Column(name = "availability")
     private Availability availability;
 
-    @OneToMany(mappedBy = "professionel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Skill> skills;
 
-    @OneToOne(mappedBy = "professionel", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "professional", cascade = CascadeType.ALL)
     private CV cv;
 
-    @OneToMany(mappedBy = "professionel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Certification> certifications;
 
 }

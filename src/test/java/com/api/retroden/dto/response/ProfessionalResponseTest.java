@@ -4,11 +4,11 @@ import com.api.retroden.model.Availability;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProfessionelResponseTest {
+class ProfessionalResponseTest {
 
     @Test
     void testNoArgsConstructor() {
-        ProfessionelResponse response = new ProfessionelResponse();
+        ProfessionalResponse response = new ProfessionalResponse();
 
         assertNotNull(response);
         assertNull(response.getFirstName());
@@ -28,7 +28,7 @@ class ProfessionelResponseTest {
         String location = "New York";
         Availability availability = Availability.FULL_TIME;
 
-        ProfessionelResponse response = new ProfessionelResponse(
+        ProfessionalResponse response = new ProfessionalResponse(
                 firstName, lastName, email, age, location, availability
         );
 
@@ -50,7 +50,7 @@ class ProfessionelResponseTest {
         String location = "London";
         Availability availability = Availability.FULL_TIME;
 
-        ProfessionelResponse response = ProfessionelResponse.builder()
+        ProfessionalResponse response = ProfessionalResponse.builder()
                 .firstName(firstName)
                 .lastName(lastName)
                 .email(email)
@@ -69,7 +69,7 @@ class ProfessionelResponseTest {
 
     @Test
     void testSettersAndGetters() {
-        ProfessionelResponse response = new ProfessionelResponse();
+        ProfessionalResponse response = new ProfessionalResponse();
 
         String firstName = "Alice";
         String lastName = "Johnson";
@@ -95,7 +95,7 @@ class ProfessionelResponseTest {
 
     @Test
     void testEqualsAndHashCode() {
-        ProfessionelResponse response1 = ProfessionelResponse.builder()
+        ProfessionalResponse response1 = ProfessionalResponse.builder()
                 .firstName("Bob")
                 .lastName("Wilson")
                 .email("bob.w@example.com")
@@ -104,7 +104,7 @@ class ProfessionelResponseTest {
                 .availability(Availability.FULL_TIME)
                 .build();
 
-        ProfessionelResponse response2 = ProfessionelResponse.builder()
+        ProfessionalResponse response2 = ProfessionalResponse.builder()
                 .firstName("Bob")
                 .lastName("Wilson")
                 .email("bob.w@example.com")
@@ -113,7 +113,7 @@ class ProfessionelResponseTest {
                 .availability(Availability.FULL_TIME)
                 .build();
 
-        ProfessionelResponse response3 = ProfessionelResponse.builder()
+        ProfessionalResponse response3 = ProfessionalResponse.builder()
                 .firstName("Different")
                 .lastName("Person")
                 .email("different@example.com")
@@ -130,7 +130,7 @@ class ProfessionelResponseTest {
 
     @Test
     void testToString() {
-        ProfessionelResponse response = ProfessionelResponse.builder()
+        ProfessionalResponse response = ProfessionalResponse.builder()
                 .firstName("Tom")
                 .lastName("Brown")
                 .email("tom.brown@example.com")
@@ -151,7 +151,7 @@ class ProfessionelResponseTest {
 
     @Test
     void testBuilderWithPartialData() {
-        ProfessionelResponse response = ProfessionelResponse.builder()
+        ProfessionalResponse response = ProfessionalResponse.builder()
                 .firstName("Mark")
                 .lastName("Davis")
                 .build();

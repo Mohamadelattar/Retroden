@@ -3,11 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Professional } from '../../shared/models/professional.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ProfessionalService {
-  private baseUrl = 'http://localhost:3000/api/professionals';
+  private baseUrl = 'http://localhost:8080/professionals';
 
   constructor(private http: HttpClient) {}
 
@@ -19,12 +17,12 @@ export class ProfessionalService {
     return this.http.get<Professional>(`${this.baseUrl}/${id}`);
   }
 
-  create(professional: Professional): Observable<Professional> {
-    return this.http.post<Professional>(this.baseUrl, professional);
+  create(Professional: Professional): Observable<Professional> {
+    return this.http.post<Professional>(this.baseUrl, Professional);
   }
 
-  update(id: number, professional: Professional): Observable<Professional> {
-    return this.http.put<Professional>(`${this.baseUrl}/${id}`, professional);
+  update(id: number, Professional: Professional): Observable<Professional> {
+    return this.http.put<Professional>(`${this.baseUrl}/${id}`, Professional);
   }
 
   delete(id: number): Observable<void> {

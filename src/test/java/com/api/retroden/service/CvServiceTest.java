@@ -4,9 +4,9 @@ import com.api.retroden.dto.mapper.CvMapper;
 import com.api.retroden.dto.request.CvRequest;
 import com.api.retroden.dto.response.CVResponse;
 import com.api.retroden.model.CV;
-import com.api.retroden.model.Professionel;
+import com.api.retroden.model.Professional;
 import com.api.retroden.repository.CVRepository;
-import com.api.retroden.repository.ProfessionelRepository;
+import com.api.retroden.repository.ProfessionalRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ public class CvServiceTest {
     private CvMapper cvMapper;
 
     @Mock
-    private ProfessionelRepository professionelRepository;
+    private ProfessionalRepository professionelRepository;
 
     @InjectMocks
     private CVService cvService;
@@ -42,7 +42,7 @@ public class CvServiceTest {
     void testCreate(){
         CvRequest request = new CvRequest(1L, "Java", new byte[]{1, 2, 3}, 1L);
         CV cv = new CV();
-        Professionel professionel = new Professionel();
+        Professional professional = new Professional();
         CV savedCv = new CV();
         CVResponse response = new CVResponse();
 
@@ -50,7 +50,7 @@ public class CvServiceTest {
         when(cvMapper.toCV(request)).thenReturn(cv);
 
         // Mocking professional repository
-        when(professionelRepository.findById(1L)).thenReturn(Optional.of(professionel));
+        when(professionelRepository.findById(1L)).thenReturn(Optional.of(professional));
 
         // Saving and mapping back to response
         when(cvRepository.save(cv)).thenReturn(savedCv);
@@ -71,13 +71,13 @@ public class CvServiceTest {
     void testUpdate(){
         CvRequest request = new CvRequest(1L, "Java", new byte[]{1, 2, 3}, 1L);
         CV existingCv = new CV();
-        Professionel professionel = new Professionel();
+        Professional professional = new Professional();
         CV updatedCv = new CV();
         CVResponse response = new CVResponse();
 
         // Mocking repository and mapper behavior
         when(cvRepository.findById(1L)).thenReturn(Optional.of(existingCv));
-        when(professionelRepository.findById(1L)).thenReturn(Optional.of(professionel));
+        when(professionelRepository.findById(1L)).thenReturn(Optional.of(professional));
         when(cvRepository.save(existingCv)).thenReturn(updatedCv);
         when(cvMapper.toCvResponse(updatedCv)).thenReturn(response);
 

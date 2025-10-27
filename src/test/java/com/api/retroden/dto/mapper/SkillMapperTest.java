@@ -2,7 +2,7 @@ package com.api.retroden.dto.mapper;
 
 import com.api.retroden.dto.request.SkillRequest;
 import com.api.retroden.dto.response.SkillResponse;
-import com.api.retroden.model.Professionel;
+import com.api.retroden.model.Professional;
 import com.api.retroden.model.Skill;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ public class SkillMapperTest {
     private SkillMapper skillMapper;
     private final Long idSkill = 1L;
     private final String skillName = "Skill";
-    private final Professionel professionel = mock(Professionel.class);
+    private final Professional professional = mock(Professional.class);
 
     @BeforeEach
     void setUp() {

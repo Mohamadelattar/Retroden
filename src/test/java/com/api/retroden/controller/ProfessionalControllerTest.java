@@ -1,7 +1,7 @@
 package com.api.retroden.controller;
 
-import com.api.retroden.dto.request.ProfessionelRequest;
-import com.api.retroden.dto.response.ProfessionelResponse;
+import com.api.retroden.dto.request.ProfessionalRequest;
+import com.api.retroden.dto.response.ProfessionalResponse;
 import com.api.retroden.model.Availability;
 import com.api.retroden.service.ProfessionalService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,8 +19,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = ProfessionelController.class)
-public class ProfessionelControllerTest {
+@WebMvcTest(controllers = ProfessionalController.class)
+public class ProfessionalControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -33,7 +33,7 @@ public class ProfessionelControllerTest {
 
     @Test
     void testCreate() throws Exception {
-        ProfessionelRequest request = new ProfessionelRequest(1L,
+        ProfessionalRequest request = new ProfessionalRequest(1L,
                 "firstName",
                 "lastName",
                 "email@email.com",
@@ -48,7 +48,7 @@ public class ProfessionelControllerTest {
 
     @Test
     void testGetById() throws Exception {
-        ProfessionelResponse response = new ProfessionelResponse();
+        ProfessionalResponse response = new ProfessionalResponse();
         Mockito.when(professionalService.findById(Mockito.anyLong())).thenReturn(response);
 
         mockMvc.perform(get("/professionel/{id}", 1L))
@@ -57,7 +57,7 @@ public class ProfessionelControllerTest {
 
     @Test
     void testGetAll() throws Exception {
-        List<ProfessionelResponse> responses = List.of(new ProfessionelResponse());
+        List<ProfessionalResponse> responses = List.of(new ProfessionalResponse());
         Mockito.when(professionalService.findAll()).thenReturn(responses);
         mockMvc.perform(get("/professionel"))
                 .andExpect(status().isOk());
@@ -65,13 +65,13 @@ public class ProfessionelControllerTest {
 
     @Test
     void testUpdate() throws Exception {
-        ProfessionelRequest request = new ProfessionelRequest(1L,
+        ProfessionalRequest request = new ProfessionalRequest(1L,
                 "firstName",
                 "lastName",
                 "email@email.com",
                 20,
                 "Agadir", Availability.FULL_TIME, List.of("JAVA"),1L,List.of("JAVA17"));
-        ProfessionelResponse response = new ProfessionelResponse();
+        ProfessionalResponse response = new ProfessionalResponse();
         Mockito.when(professionalService.findById(Mockito.anyLong())).thenReturn(response);
 
         mockMvc.perform(put("/professionel")

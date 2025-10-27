@@ -4,7 +4,7 @@ import com.api.retroden.model.Availability;
 
 import java.util.List;
 
-public record ProfessionelRequest(
+public record ProfessionalRequest(
         Long  id,
         String firstName,
         String lastName,

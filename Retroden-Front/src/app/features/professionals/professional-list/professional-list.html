@@ -1,1 +1,42 @@
-<p>professional-list works!</p>
+<div class="container mt-4">
+  <div class="d-flex justify-between align-center mb-3">
+    <h2>Professionals</h2>
+    <a routerLink="create" class="btn btn-primary">+ Add Professional</a>
+  </div>
+
+  @if (professionals.length === 0) {
+    <p class="text-center">No professionals found.</p>
+  } @else {
+    <div class="card-grid">
+      @for (p of professionals; track p.id) {
+        <div class="card">
+          <div class="card-header">
+            <h3>{{ p.firstName }} {{ p.lastName }}</h3>
+            <span class="badge"
+                  [class.available]="p.availability === 'AVAILABLE'"
+                  [class.busy]="p.availability === 'BUSY'"
+                  [class.unavailable]="p.availability === 'UNAVAILABLE'">
+        {{ p.availability }}
+      </span>
+          </div>
+
+          <div class="card-body">
+            <p><strong>Email:</strong> {{ p.email }}</p>
+            <p><strong>Age:</strong> {{ p.age }}</p>
+            <p><strong>Location:</strong> {{ p.location }}</p>
+          </div>
+
+          <div class="card-actions">
+            <a [routerLink]="['/professionals/edit', p.id]" class="btn btn-sm btn-outline-primary me-2">
+              Edit
+            </a>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteProfessionel(p.id!)">
+              Delete
+            </button>
+          </div>
+        </div>
+      }
+
+    </div>
+  }
+</div>

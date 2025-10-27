@@ -4,7 +4,7 @@ import com.api.retroden.dto.mapper.SkillMapper;
 import com.api.retroden.dto.request.SkillRequest;
 import com.api.retroden.dto.response.SkillResponse;
 import com.api.retroden.model.Skill;
-import com.api.retroden.repository.ProfessionelRepository;
+import com.api.retroden.repository.ProfessionalRepository;
 import com.api.retroden.repository.SkillRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class SkillServiceTest {
     private SkillMapper skillMapper;
 
     @Mock
-    private ProfessionelRepository professionelRepository;
+    private ProfessionalRepository professionelRepository;
 
     @InjectMocks
     private SkillService skillService;

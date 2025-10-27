@@ -11,30 +11,30 @@ public class CvTest {
     private final Long idCv = 1L;
     private final String name = "Cv";
     private final byte[] data = {1,2,3,4,5,6,7,8,9};
-    private final Professionel professionel = mock(Professionel.class);
+    private final Professional professional = mock(Professional.class);
 
     @Test
     void shouldCreateCvUsingConstructor(){
         CV cv = new CV(idCv,
                         name,
                         data,
-                        professionel);
+                professional);
         assertEquals(idCv,cv.getIdCV());
         assertEquals(name,cv.getName());
         assertEquals(data,cv.getData());
-        assertEquals(professionel,cv.getProfessionel());
+        assertEquals(professional,cv.getProfessional());
     }
     @Test
     void shouldCreateCvUsingBuilder(){
         CV cv = CV.builder().idCV(idCv)
                 .name(name)
                 .data(data)
-                .professionel(professionel)
+                .professional(professional)
                 .build();
         assertEquals(idCv,cv.getIdCV());
         assertEquals(name,cv.getName());
         assertEquals(data,cv.getData());
-        assertEquals(professionel,cv.getProfessionel());
+        assertEquals(professional,cv.getProfessional());
     }
 
     @Test
@@ -43,12 +43,12 @@ public class CvTest {
         cv.setIdCV(idCv);
         cv.setName(name);
         cv.setData(data);
-        cv.setProfessionel(professionel);
+        cv.setProfessional(professional);
 
         assertEquals(idCv,cv.getIdCV());
         assertEquals(name,cv.getName());
         assertEquals(data,cv.getData());
-        assertEquals(professionel,cv.getProfessionel());
+        assertEquals(professional,cv.getProfessional());
     }
 
 }

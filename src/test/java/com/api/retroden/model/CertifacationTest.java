@@ -10,17 +10,17 @@ import static org.mockito.Mockito.mock;
 public class CertifacationTest {
     private  final Long idCertification = 1L;
     private final String name = "Java Cert";
-    private final Professionel professionel = mock(Professionel.class);
+    private final Professional professional = mock(Professional.class);
     private final byte[] data = {1,2,3};
     @Test
     void shouldCreateCertifacationUsingConstructor() {
         Certification certification = new Certification(idCertification,
                                                         name,
-                                                        data,professionel);
+                                                        data, professional);
         assertEquals(idCertification, certification.getIdCertification());
         assertEquals(name, certification.getName());
         assertEquals(data, certification.getData());
-        assertEquals(professionel,certification.getProfessionel());
+        assertEquals(professional,certification.getProfessional());
     }
 
     @Test
@@ -29,12 +29,12 @@ public class CertifacationTest {
                 .idCertification(idCertification)
                 .name(name)
                 .data(data)
-                .professionel(professionel)
+                .professional(professional)
                 .build();
         assertEquals(idCertification, certification.getIdCertification());
         assertEquals(name, certification.getName());
         assertEquals(data, certification.getData());
-        assertEquals(professionel,certification.getProfessionel());
+        assertEquals(professional,certification.getProfessional());
 
     }
     @Test
@@ -43,11 +43,11 @@ public class CertifacationTest {
         certification.setIdCertification(idCertification);
         certification.setName(name);
         certification.setData(data);
-        certification.setProfessionel(professionel);
+        certification.setProfessional(professional);
         
         assertEquals(idCertification, certification.getIdCertification());
         assertEquals(name, certification.getName());
         assertEquals(data, certification.getData());
-        assertEquals(professionel,certification.getProfessionel());
+        assertEquals(professional,certification.getProfessional());
     }
 }

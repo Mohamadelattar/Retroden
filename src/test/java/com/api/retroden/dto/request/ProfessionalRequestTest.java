@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ProfessionelRequestTest {
+public class ProfessionalRequestTest {
     Long  id = 1L;
     String firstName = "John";
     String lastName = "Smith";
@@ -22,7 +22,7 @@ public class ProfessionelRequestTest {
 
     @Test
     public void testProfessionelRequestCreation() {
-        ProfessionelRequest request = new ProfessionelRequest(id, firstName, lastName, email, age, location, availability, skills, idCv, certefications);
+        ProfessionalRequest request = new ProfessionalRequest(id, firstName, lastName, email, age, location, availability, skills, idCv, certefications);
 
         assertEquals(id,request.id());
         assertEquals(firstName,request.firstName());

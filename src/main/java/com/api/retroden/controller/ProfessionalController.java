@@ -1,7 +1,7 @@
 package com.api.retroden.controller;
 
-import com.api.retroden.dto.request.ProfessionelRequest;
-import com.api.retroden.dto.response.ProfessionelResponse;
+import com.api.retroden.dto.request.ProfessionalRequest;
+import com.api.retroden.dto.response.ProfessionalResponse;
 import com.api.retroden.service.ProfessionalService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -10,29 +10,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/professionel")
-public class ProfessionelController {
+@RequestMapping("/professionals")
+public class ProfessionalController {
     private final ProfessionalService professionalService;
 
-    public ProfessionelController(ProfessionalService professionalService) {
+    public ProfessionalController(ProfessionalService professionalService) {
         this.professionalService = professionalService;
     }
     @PostMapping
-    public ResponseEntity<?> createCertification(@RequestBody  ProfessionelRequest professionelRequest) {
-        this.professionalService.create(professionelRequest);
+    public ResponseEntity<?> createProfessional(@RequestBody ProfessionalRequest professionalRequest) {
+        this.professionalService.create(professionalRequest);
         return ResponseEntity.accepted().body("Professionel created");
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProfessionelResponse> findById(@PathVariable Long id) {
+    public ResponseEntity<ProfessionalResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(this.professionalService.findById(id));
     }
     @GetMapping
-    public ResponseEntity<List<ProfessionelResponse>> findAll() {
+    public ResponseEntity<List<ProfessionalResponse>> findAll() {
         return ResponseEntity.ok().body(this.professionalService.findAll());
     }
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody @Valid ProfessionelRequest professionelRequest) {
+    public ResponseEntity<?> update(@RequestBody @Valid ProfessionalRequest professionelRequest) {
         return ResponseEntity.ok().body(this.professionalService.update(professionelRequest));
     }
     @DeleteMapping
