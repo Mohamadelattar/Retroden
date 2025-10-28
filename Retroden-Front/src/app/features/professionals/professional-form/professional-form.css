@@ -1,0 +1,30 @@
+.professional-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.professional-form label {
+  font-weight: 600;
+}
+
+.professional-form input,
+.professional-form select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.professional-form input:focus,
+.professional-form select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(10, 102, 194, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

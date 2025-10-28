@@ -1,0 +1,26 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h1 class="auth-logo">Retroden</h1>
+
+    <h2 class="auth-title">Join Retroden</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <input type="text" placeholder="First Name" formControlName="firstName" class="auth-input" />
+      <input type="text" placeholder="Last Name" formControlName="lastName" class="auth-input" />
+      <input type="email" placeholder="Email" formControlName="email" class="auth-input" />
+      <input type="password" placeholder="Password" formControlName="password" class="auth-input" />
+
+      <select formControlName="role" class="auth-input">
+        <option value="" disabled>Select your role</option>
+        <option value="PROFESSIONAL">Professional</option>
+        <option value="COMPANY">Company</option>
+      </select>
+
+      <button type="submit" class="btn btn-primary auth-btn">Join Now</button>
+    </form>
+
+    <p class="auth-footer">
+      Already have an account? <a routerLink="/login">Sign in</a>
+    </p>
+  </div>
+</div>
