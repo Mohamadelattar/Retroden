@@ -1,1 +1,79 @@
-<p>professional-detail works!</p>
+<div class="profile-container">
+  <!-- Profile header -->
+  <div class="profile-card">
+    <div class="cover-photo"></div>
+
+    <div class="profile-content">
+      <div class="avatar">
+        {{
+          professional?.firstName?.charAt(0) ?? ''
+        }}{{ professional?.lastName?.charAt(0) ?? '' }}
+      </div>
+
+      <div class="profile-info">
+        <h2>{{ professional?.firstName }} {{ professional?.lastName }}</h2>
+        <p class="text-muted">{{ professional?.email }}</p>
+        <p>{{ professional?.location }}</p>
+        <span class="badge"
+        >Availability: {{ professional?.availability }}</span
+        >
+      </div>
+
+      <button class="btn btn-primary edit-btn">Edit Profile</button>
+    </div>
+  </div>
+
+  <!-- Info Sections -->
+  <div class="info-section">
+    <div class="card">
+      <h3>About</h3>
+      <p>Age: {{ professional?.age }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Skills</h3>
+      <ul>
+        @for (skill of professional?.skills ?? []; track skill) {
+          <li>{{ skill }}</li>
+        }
+      </ul>
+    </div>
+
+    <div class="card">
+      <!-- Certifications Section -->
+      <section class="card mt-3">
+        <h3>Certifications</h3>
+
+        @if (professional?.certifications?.length ?? 0 > 0) {
+          <ul class="cert-list">
+            @for (cert of professional.certifications; track cert.id) {
+              <li class="cert-item">
+                <span class="cert-name">{{ cert.name }}</span>
+                <a
+                  [href]="'/api/certifications/' + cert.id + '/download'"
+                  target="_blank"
+                  class="btn btn-sm btn-outline-primary"
+                >
+                  View PDF
+                </a>
+              </li>
+            }
+          </ul>
+        } @else {
+          <p class="text-muted">No certifications added yet.</p>
+        }
+      </section>
+
+    </div>
+
+    <div class="card">
+      <h3>CV</h3>
+      <ng-container *ngIf="professional?.cv as cv; else noCv">
+        <a [href]="cv.url" class="btn btn-secondary" target="_blank">View CV</a>
+      </ng-container>
+      <ng-template #noCv>
+        <p class="text-muted">No CV uploaded yet.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>
